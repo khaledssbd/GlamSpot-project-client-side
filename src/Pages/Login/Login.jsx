@@ -1,16 +1,16 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../providers/AuthProvider';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import googleSvg from '../../assets/google.svg';
 import facebookSvg from '../../assets/facebook.svg';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
   const { logIn, signInWithSocial, facebookProvider, googleProvider } =
-    useContext(AuthContext);
+    useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();

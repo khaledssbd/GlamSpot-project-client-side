@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const auth = getAuth(app);
 
@@ -60,6 +61,45 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSubscribe();
   }, []);
+
+
+
+
+    useEffect(() => {
+      const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        const userEmail = currentUser?.email || user?.email;
+        const loggedUser = { email: userEmail };
+        setUser(currentUser);
+
+        // if user exists then issue a token
+        if (currentUser) {
+          axios
+            .post(`${import.meta.env.VITE_API_URL}/getJwtToken`, loggedUser, {
+              withCredentials: true,
+            })
+            .then(res => {
+              if (res.data.success) {
+                setLoading(false);
+              }
+            });
+        } else {
+          axios
+            .post(
+              `${import.meta.env.VITE_API_URL}/deleteJwtToken`,
+              loggedUser,
+              {
+                withCredentials: true,
+              }
+            )
+            .then(res => {
+              if (res.data.success) {
+                setLoading(false);
+              }
+            });
+        }
+      });
+      return () => unSubscribe();
+    }, [user?.email]);
 
   const authInfo = {
     user,

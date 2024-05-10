@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import userImg from '../../assets/user.png';
+import useAuth from '../../hooks/useAuth';
 
 const UserProfile = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
 
   return (
     <div className="mb-20">

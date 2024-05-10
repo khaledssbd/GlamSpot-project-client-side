@@ -1,10 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
+import useAuth from '../../hooks/useAuth';
 
 const UpdateProfile = () => {
-  const { updateUserProfile, user } = useContext(AuthContext);
+  const { updateUserProfile, user } = useAuth();
   const navigate = useNavigate();
   const handleRegister = e => {
     e.preventDefault();

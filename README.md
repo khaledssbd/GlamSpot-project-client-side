@@ -2,7 +2,7 @@
 
 ## Live site:
 
-- Click here- [GlamSpot on firebase](https://GlamSpot-khaled.web.app)
+- Click here- [GlamSpot on firebase](https://glamspot-khaled.web.app)
 - Click here- [GlamSpot on vercel](https://ph-a11-client-by-khaled.vercel.app)
 - Click here- [GlamSpot on surge](https://ph-a11-client-by-khaled.surge.sh)
 - Click here- [GlamSpot on netlify](https://ph-a11-client-by-khaled.netlify.app)
