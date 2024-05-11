@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 // npm i framer-motion
 
-const CarouselAni = ({ allSpots }) => {
-  const showSpots = allSpots.slice(0, 9);
-  const till = showSpots.length;
+const CarouselAni = ({ allServices }) => {
+  const showServices = allServices.slice(0, 9);
+  const till = showServices.length;
   const [positionIndexes, setPositionIndexes] = useState(
     Array.from({ length: till }, (_, i) => i)
   );
@@ -48,25 +48,34 @@ const CarouselAni = ({ allSpots }) => {
         className="font-play text-xl md:text-3xl font-medium -mb-20 lg:-mb-14"
         // data-aos="zoom-in"
       >
-      
         <span style={{ color: '#fa237d', fontWeight: 'bold' }}>
           <Typewriter
-            words={['Spots we plan']}
+            words={[
+              'Services we provide',
+              'Haircut & Styling',
+              'Facial Spa',
+              'Manicure & Pedicure',
+              'Massage Therapy',
+              'Makeup Artistry',
+              'Barber Services',
+              'Waxing & Threading',
+              'Spa Packages',
+            ]}
             loop={50}
             cursor
             cursorStyle="_"
             typeSpeed={70}
             deleteSpeed={50}
-            delaySpeed={1000}
+            delaySpeed={1500}
           />
         </span>
       </h4>
       <div className="flex items-center flex-col justify-center">
-        {showSpots?.map((h, i) => (
+        {showServices?.map((h, i) => (
           <motion.img
             key={i}
-            src={h.image}
-            alt={h.estate_title}
+            src={h.serviceImage}
+            alt={h.serviceName}
             className="rounded-[12px] absolute w-[55%]"
             animate={positions[positionIndexes[i]]}
             variants={imageVariants}
@@ -88,5 +97,5 @@ const CarouselAni = ({ allSpots }) => {
 export default CarouselAni;
 
 CarouselAni.propTypes = {
-  allSpots: PropTypes.array.isRequired,
+  allServices: PropTypes.array.isRequired,
 };

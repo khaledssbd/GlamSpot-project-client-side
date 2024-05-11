@@ -72,7 +72,7 @@ const Navbar = () => {
           }
           to="/all-services"
         >
-          Services
+          All Services
         </NavLink>
       </li>
       {user && (
@@ -311,7 +311,7 @@ const Navbar = () => {
         ) : (
           <>
             <Link to="/login">
-              <button className="btn btn-outline bg-blue-600 hover:bg-black text-white hover:text-white">
+              <button className="btn btn-outline bg-blue-600 hover:bg-black text-white hover:text-white ml-3">
                 Login
               </button>
             </Link>

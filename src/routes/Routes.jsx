@@ -12,6 +12,7 @@ import AddService from '../Pages/AddService/AddService';
 import ServiceToDo from '../Pages/ServiceToDo/ServiceToDo';
 import BookedServices from '../Pages/BookedServices/BookedServices';
 import ManageServices from '../Pages/ManageServices/ManageServices';
+import ServiceDetails from '../Pages/ServiceDetails/ServiceDetails';
 
 const router = createBrowserRouter([
   {
@@ -21,13 +22,22 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        // loader: () => fetch('https://ph-a11-server.vercel.app/allTouristsSpot'),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/all-services`),
         element: <Home />,
       },
       {
         path: '/all-services',
-        // loader: () => fetch('https://ph-a11-server.vercel.app/allTouristsSpot'),
         element: <AllServices />,
+      },
+      {
+        path: '/service/:id',
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/service-details/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <ServiceDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/add-service',
@@ -41,7 +51,7 @@ const router = createBrowserRouter([
         path: '/manage-service',
         element: (
           <PrivateRoute>
-            <ManageServices/>
+            <ManageServices />
           </PrivateRoute>
         ),
       },
@@ -49,7 +59,7 @@ const router = createBrowserRouter([
         path: '/booked-service',
         element: (
           <PrivateRoute>
-            <BookedServices/>
+            <BookedServices />
           </PrivateRoute>
         ),
       },
@@ -57,7 +67,7 @@ const router = createBrowserRouter([
         path: '/service-to-do',
         element: (
           <PrivateRoute>
-            <ServiceToDo/>
+            <ServiceToDo />
           </PrivateRoute>
         ),
       },

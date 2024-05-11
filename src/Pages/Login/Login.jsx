@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import googleSvg from '../../assets/google.svg';
-import facebookSvg from '../../assets/facebook.svg';
+// import facebookSvg from '../../assets/facebook.svg';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
-  const { logIn, signInWithSocial, facebookProvider, googleProvider } =
-    useAuth();
+  // const { logIn, signInWithSocial, facebookProvider, googleProvider } = useAuth();
+  const { logIn, signInWithSocial, googleProvider } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -96,13 +96,13 @@ const Login = () => {
           >
             <img className="w-9" src={googleSvg} alt="" />
           </button>
-          <button
+          {/* <button
             onClick={() => {
               socialSignIn(facebookProvider);
             }}
           >
             <img className="w-9" src={facebookSvg} alt="" />
-          </button>
+          </button> */}
         </div>
       </div>
       <p className="text-center mt-4">

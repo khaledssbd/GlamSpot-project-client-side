@@ -1,152 +1,134 @@
-import { useEffect, useState } from 'react';
-import useAuth from '../../hooks/useAuth';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { Helmet } from 'react-helmet-async';
-import Swal from 'sweetalert2';
-import { Typewriter } from 'react-simple-typewriter';
-import deleteImg from '../../assets/delete.svg';
-import updateImg from '../../assets/update.svg';
+import {useLoaderData, useNavigate } from 'react-router-dom';
+import { IoLocationOutline } from 'react-icons/io5';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
 
-const BookedServices = () => {
-  const { user } = useAuth();
-  const [bookings, setBookings] = useState([]);
-  const [fetchNow, setFetchNow] = useState(true);
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [bookingToUpdate, setBookingToUpdate] = useState({});
-  const [serviceTakingDate, setServiceTakingDate] = useState(new Date());
+const ServiceDetails = () => {
+  const service = useLoaderData();
   const axiosSecure = useAxiosSecure();
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [serviceTakingDate, setServiceTakingDate] = useState(new Date());
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const {
+    _id,
+    serviceName,
+    serviceImage,
+    servicePrice,
+    serviceArea,
+    serviceDescription,
+    providerEmail,
+    providerImage,
+    providerName,
+    totalBookings,
+  } = service || {};
 
-  useEffect(() => {
-    axiosSecure.get(`/bookings?email=${user?.email}`).then(res => {
-      setBookings(res.data);
-    });
-  }, [user?.email, axiosSecure, fetchNow]);
-
-  const refetch = () => {
-    setFetchNow(!fetchNow);
-  };
-  const handleDelete = id => {
-    Swal.fire({
-      title: 'Confirm to delete?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then(result => {
-      if (result.isConfirmed) {
-        axiosSecure
-          .delete(
-            `${import.meta.env.VITE_API_URL}/delete-booking/${id}?email=${
-              user?.email
-            }`
-          )
-          .then(data => {
-            if (data.data.deletedCount > 0) {
-              Swal.fire(
-                'Deleted!',
-                'Your Booking has been deleted.',
-                'success'
-              );
-              refetch();
-            }
-          });
-      }
-    });
-  };
-
-  const getDataForUpdate = async id => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/booking-details/${id}`
-    );
-    setBookingToUpdate(data);
-    setServiceTakingDate(data.serviceTakingDate);
-    setShowUpdateModal(true);
-  };
-
-  const handleUpdateBooking = async e => {
+  const handleBooking = async e => {
     e.preventDefault();
+
     const form = e.target;
     const instruction = form.instruction.value;
-    const updateData = { instruction, serviceTakingDate };
+    const serviceId = _id;
+    const customerEmail = user?.email;
+    const customerName = user?.displayName;
 
-    const { data } = await axios.patch(
-      `${import.meta.env.VITE_API_URL}/update-booking/${bookingToUpdate._id}`,
-      updateData
-    );
-    if (data.modifiedCount > 0) {
-      Swal.fire('Updated!', 'Your Booking has been updated.', 'success');
-      setShowUpdateModal(false);
-      setBookingToUpdate({});
-      refetch();
+    const bookingInfo = {
+      serviceId,
+      serviceName,
+      serviceImage,
+      servicePrice,
+      serviceArea,
+      providerName,
+      providerEmail,
+      customerName,
+      customerEmail,
+      instruction,
+      serviceTakingDate,
+    };
+
+    try {
+      const { data } = await axiosSecure.post(
+        `/book-now?email=${user?.email}`,
+        bookingInfo
+      );
+      if (data.insertedId) {
+        toast.success('Booking done Successfully!');
+        navigate('/booked-service');
+      }
+    } catch (error) {
+      toast.success(error.response.data);
     }
   };
 
   return (
-    <div className="my-10 sm:px-6">
+    <div className="my-6 md:my-11">
       <Helmet>
-        <title>GlamSpot | My Bookings</title>
+        <title>GlamSpot | Service: {_id}</title>
       </Helmet>
-
-      <span style={{ color: '#fa237d', fontWeight: 'bold' }}>
-        <Typewriter
-          words={['My Booked Services']}
-          loop={50}
-          cursor
-          cursorStyle="_"
-          typeSpeed={70}
-          deleteSpeed={50}
-          delaySpeed={1500}
-        />
-      </span>
-
-      <div className="overflow-x-auto rounded-2xl border border-black mt-8">
-        <table className="table table-zebra">
-          {/* head starts here */}
-          <thead className="bg-green-400">
-            <tr>
-              <th className="text-sm text-black">Sl</th>
-              <th className="text-sm text-black">Service Name</th>
-              <th className="text-sm text-black">Area</th>
-              <th className="text-sm text-black">Price</th>
-              <th className="text-sm text-black">Provider Name</th>
-              <th className="text-sm text-black">Update</th>
-              <th className="text-sm text-black">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row starts here */}
-            {bookings?.map((booking, i) => (
-              <tr key={booking._id}>
-                <th>{i + 1}.</th>
-                <td>{booking.serviceName}</td>
-                <td>{booking.serviceArea}</td>
-                <td>$ {booking.servicePrice}</td>
-                <td>{booking.providerName}</td>
-                <td>
-                  <div onClick={() => getDataForUpdate(booking._id)}>
-                    <img src={updateImg} alt="update-booking" className="w-6" />
-                  </div>
-                </td>
-                <td>
-                  <div onClick={() => handleDelete(booking._id)}>
-                    <img src={deleteImg} alt="delete-booking" className="w-6" />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="flex justify-center items-center mb-5 md:mb-10 animate__animated animate__backInUp">
+        <img className="h-1/2 rounded-xl" src={serviceImage} alt="" />
       </div>
-      {showUpdateModal && (
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="col-span-2 flex flex-col gap-5 animate__animated animate__backInUp">
+          <h3 className="font-play text-[20px] md:text-[40px] font-bold">
+            {serviceName}
+          </h3>
+
+          <div className="flex gap-3 text-base font-normal">
+            Area:
+            <h3 className="flex items-center text-base font-semibold">
+              <IoLocationOutline /> {serviceArea}
+            </h3>
+          </div>
+
+          <div className="flex gap-3 text-base font-normal">
+            Price: ${servicePrice}
+          </div>
+          <div className="flex gap-3 text-base font-normal">
+            Bookings: {totalBookings}
+          </div>
+          <div className="text-left">
+            <h3 className="text-start text-base font-normal">
+              Description: {serviceDescription}
+            </h3>
+          </div>
+
+          <div className="flex gap-2 mt-5"></div>
+        </div>
+
+        <div className="animate__animated animate__backInUp min-w-56">
+          <div className="lg:mt-28 ml-4 flex flex-col mb-6">
+            <h3 className="text-base font-medium mb-2">Provider-</h3>
+            <div className="flex justify-center items-center gap-4 mb-2 pb-2 border-t border-gray-300">
+              <div className="rounded-full object-cover overflow-hidden w-10 h-10">
+                <img src={providerImage} alt={providerName} />
+              </div>
+              <div>
+                <p className="mt-2 text-sm  text-left">Name: {providerName}</p>
+                <p className="mt-2 text-sm text-left">Email: {providerEmail}</p>
+              </div>
+            </div>
+            <div className="text-center mt-5">
+              <button
+                onClick={() => setShowBookingForm(!showBookingForm)}
+                className="btn text-xs md:text-sm bg-blue-500 hover:bg-green-500 text-white hover:text-black"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {showBookingForm && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
           <div className="w-2/3 h-5/6 rounded bg-red-200 text-center">
             <div className="mt-8 mx-auto w-full md:w-2/3">
-              <form onSubmit={handleUpdateBooking}>
+              <form onSubmit={handleBooking}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Left side */}
                   <div className="flex-1">
@@ -157,7 +139,7 @@ const BookedServices = () => {
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
                       type="text"
                       required
-                      defaultValue={bookingToUpdate.serviceName}
+                      defaultValue={serviceName}
                       name="name"
                       readOnly
                     />
@@ -169,7 +151,7 @@ const BookedServices = () => {
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
                       type="text"
                       required
-                      defaultValue={bookingToUpdate.serviceImage}
+                      defaultValue={serviceImage}
                       name="image"
                       readOnly
                     />
@@ -181,7 +163,7 @@ const BookedServices = () => {
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
                       type="text"
                       required
-                      defaultValue={bookingToUpdate._id}
+                      defaultValue={_id}
                       name="id"
                       readOnly
                     />
@@ -193,7 +175,7 @@ const BookedServices = () => {
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
                       type="text"
                       required
-                      defaultValue={bookingToUpdate.providerEmail}
+                      defaultValue={providerEmail}
                       name="providerEmail"
                       readOnly
                     />
@@ -205,7 +187,7 @@ const BookedServices = () => {
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
                       type="text"
                       required
-                      defaultValue={bookingToUpdate.providerName}
+                      defaultValue={providerName}
                       name="providerName"
                       readOnly
                     />
@@ -219,7 +201,7 @@ const BookedServices = () => {
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
                       type="text"
                       required
-                      defaultValue={bookingToUpdate.servicePrice}
+                      defaultValue={servicePrice}
                       name="price"
                       readOnly
                     />
@@ -256,7 +238,6 @@ const BookedServices = () => {
                       name="instruction"
                       required
                       placeholder="Enter your instruction"
-                      defaultValue={bookingToUpdate.instruction}
                       cols="1"
                       rows="2"
                     />
@@ -272,7 +253,7 @@ const BookedServices = () => {
                 <input
                   className="mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                   type="submit"
-                  value="Update"
+                  value="Purchase"
                 />
               </form>
             </div>
@@ -283,4 +264,4 @@ const BookedServices = () => {
   );
 };
 
-export default BookedServices;
+export default ServiceDetails;

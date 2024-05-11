@@ -1,5 +1,6 @@
-import heroImg from '../../assets/heroImg.png';
-import niceSvg from '../../assets/nice.svg';
+import heroImg from '../../assets/heroImg.jpg';
+import niceImg from '../../assets/nice.png';
+
 import { Typewriter } from 'react-simple-typewriter';
 
 const Hero = () => {
@@ -17,7 +18,7 @@ const Hero = () => {
     >
       <img
         className="w-20 mb-5 md:mb-8"
-        src={niceSvg}
+        src={niceImg}
         alt="GlamSpot"
         data-aos="zoom-in-up"
       />
@@ -31,14 +32,14 @@ const Hero = () => {
         className="text-xl font-bold md:text-4xl bg-gradient-to-r from-primary via-green-600 to-secondary bg-300% text-transparent bg-clip-text animate-gradient"
         data-aos="fade-down-right"
       >
-        Arrange your next tour with the best tour experts and get <br /> awesome
-        discounts for you.
+        Indulge in the ultimate beauty and grooming experience <br /> with
+        GlamSpot!
       </h3>
       <h5 className="font-inter mb-10 mt-4 text-sm font-normal text-white md:text-lg px-3">
         <span style={{ color: 'white', fontWeight: 'bold' }}>
           <Typewriter
             words={[
-              'We are the best tour planner as we guide and arrange comfortfull and secured tour for our Customers. We confirm both your enjoyment and security in your tour.',
+              'Our team of experts is here to guide you through a world of luxury and pampering. Book your next appointment and enjoy exclusive discounts tailored just for you. Elevate your beauty routine with GlamSpot today!',
             ]}
             loop={50}
             cursor

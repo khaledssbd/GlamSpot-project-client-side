@@ -7,7 +7,6 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
-  FacebookAuthProvider,
   updateProfile,
 } from 'firebase/auth';
 import app from '../firebase/firebase.config';
@@ -20,7 +19,7 @@ export const AuthContext = createContext(null);
 
 // social auth providers
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
+// const facebookProvider = new FacebookAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -109,7 +108,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     signInWithSocial,
     googleProvider,
-    facebookProvider,
+
     updateUserProfile,
   };
 

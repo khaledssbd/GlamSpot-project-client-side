@@ -1,4 +1,10 @@
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import {
+  Autoplay,
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+} from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // npm i swiper
 import 'swiper/css';
@@ -8,35 +14,39 @@ import 'swiper/css/scrollbar';
 import PropTypes from 'prop-types';
 import 'swiper/css/effect-coverflow';
 
-const SwiperSlides = ({ allSpots }) => {
+const SwiperSlides = ({ allServices }) => {
   return (
     <div>
       <h4
         className="font-play text-xl md:text-3xl font-medium my-10 md:my-16"
         data-aos="zoom-out"
       >
-        Swiper Slides
+        Our services
       </h4>
       <div className="swiper-wrapper mb-20">
         <Swiper
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+          }}
+          navigation={true}
           effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
           loop={true}
           coverflowEffect={{ rotate: 0, stretch: 0, depth: 100, modifier: 1 }}
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          spaceBetween={5}
+          modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
+          spaceBetween={10}
           slidesPerView={2}
-          navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
         >
-          {allSpots?.map((spot, i) => (
+          {allServices?.map((s, i) => (
             <SwiperSlide key={i}>
               <img
-                src={spot.image}
+                src={s.serviceImage}
                 className="rounded-2xl px-1 w-full h-52 md:h-96"
-                alt={spot.tourists_spot_name}
+                alt={s.serviceName}
               />
             </SwiperSlide>
           ))}
@@ -48,5 +58,5 @@ const SwiperSlides = ({ allSpots }) => {
 
 export default SwiperSlides;
 SwiperSlides.propTypes = {
-  allSpots: PropTypes.array.isRequired,
+  allServices: PropTypes.array.isRequired,
 };

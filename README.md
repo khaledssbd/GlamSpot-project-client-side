@@ -32,8 +32,7 @@
 
 - npm i lottie-react (in error page and loading. e.g.
   [here](https://glamspot-khaled.web.app/fdfgfdvgdfg))
-- npm i react-simple-typewriter (in hero section and title, 'Add
-  Tourists Spot' page title)
+- npm i react-simple-typewriter (in hero section and title, 'Booked Services' page title)
 - npm install react-tooltip (in userImage which will be showed after login)
 
 # npm Packages

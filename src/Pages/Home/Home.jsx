@@ -3,20 +3,21 @@ import Hero from './Hero';
 import { Helmet } from 'react-helmet-async';
 // npm i react-helmet-async
 import SlidesFlip from './SlidesFlip';
-// import SwiperSlides from './SwiperSlides';
-// import CarouselAni from './CarouselAni';
+import SwiperSlides from './SwiperSlides';
+import CarouselAni from './CarouselAni';
+import PopularServices from './PopularServices';
 
 const Home = () => {
+  const allServices = useLoaderData();
   return (
     <div>
       <Helmet>
         <title>GlamSpot | Home</title>
       </Helmet>
-      {/* <CarouselAni allSpots={allSpots}></CarouselAni> */}
       <Hero />
-      {/* <Countries /> */}
-      {/* <SwiperSlides allSpots={allSpots}></SwiperSlides> */}
-      {/* <TouristsSpots allSpots={allSpots}></TouristsSpots> */}
+      <CarouselAni allServices={allServices}></CarouselAni>
+      <SwiperSlides allServices={allServices}></SwiperSlides>
+      <PopularServices allServices={allServices} />
       <SlidesFlip />
     </div>
   );

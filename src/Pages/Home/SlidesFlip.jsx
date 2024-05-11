@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 // npm i framer-motion
-import Image_1 from '../../assets/1.jpg';
+import Image_1 from '../../assets/1.png';
 import Image_2 from '../../assets/2.jpg';
 
 const SlidesFlip = () => {
@@ -18,7 +18,7 @@ const SlidesFlip = () => {
         className="font-play text-xl md:text-3xl font-medium mb-4"
         data-aos="zoom-out-down"
       >
-        Slides of Spots{' (click on the Image)'}
+        Slides of Services{' (click on the Image)'}
       </h4>
 
       <div className="flex justify-center h-[600px] items-center cursor-pointer ">

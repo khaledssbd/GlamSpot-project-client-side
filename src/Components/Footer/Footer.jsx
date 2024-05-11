@@ -16,9 +16,9 @@ const Footer = () => {
             className="btn btn-ghost hover:bg-white hover:text-black text-base md:text-4xl font-extrabold md:mb-4"
             data-aos="flip-up"
           >
-            <button className="flex justify-center items-center gap-2 md:gap-3">
+            <button className="flex justify-center items-center gap-1 md:gap-2">
               <img
-                className="w-5 md:w-8 rounded-lg"
+                className="w-5 md:w-10 rounded-lg"
                 src="/favicon.png"
                 alt=""
               />
