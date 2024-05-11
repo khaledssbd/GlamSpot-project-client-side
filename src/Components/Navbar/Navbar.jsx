@@ -1,16 +1,17 @@
 import { Link, NavLink } from 'react-router-dom';
 import userImg from '../../assets/user.png';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../providers/AuthProvider';
+import { useEffect, useState } from 'react';
+
 import toast from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
 // import SUN from '../../assets/sun.svg';
 // import DARK from '../../assets/dark.png';
 import MOON from '../../assets/moon.svg';
 import LIGHT from '../../assets/light.png';
+import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
 
   // theme change part start
   const [theme, setTheme] = useState();

@@ -1,0 +1,90 @@
+[
+  {
+    "serviceImage": "https://i.ibb.co/1MtGgWX/Haircut-Styling.jpg",
+    "serviceName": "Haircut & Styling",
+    "servicePrice": "30",
+    "serviceArea": "Downtown",
+    "serviceDescription": "Get a trendy haircut and stylish hairdo by our expert stylists.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  },
+  {
+    "serviceImage": "https://i.ibb.co/cxcrqL7/Facial-Spa.jpg",
+    "serviceName": "Facial Spa",
+    "servicePrice": "50",
+    "serviceArea": "Midtown",
+    "serviceDescription": "Revitalize your skin with our rejuvenating facial spa treatments.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  },
+  {
+    "serviceImage": "https://i.ibb.co/529fKyL/Manicure-Pedicure.jpg",
+    "serviceName": "Manicure & Pedicure",
+    "servicePrice": "40",
+    "serviceArea": "Uptown",
+    "serviceDescription": "Pamper yourself with a relaxing manicure and pedicure session.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  },
+  {
+    "serviceImage": "https://i.ibb.co/rFVczy0/Massage-Therapy.jpg",
+    "serviceName": "Massage Therapy",
+    "servicePrice": "60",
+    "serviceArea": "Suburbs",
+    "serviceDescription": "Relieve stress and tension with our soothing massage therapy services.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  },
+  {
+    "serviceImage": "https://i.ibb.co/v3KtRVx/Makeup-Artistry.png",
+    "serviceName": "Makeup Artistry",
+    "servicePrice": "70",
+    "serviceArea": "Downtown",
+    "serviceDescription": "Transform your look with our professional makeup artistry services.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  },
+  {
+    "serviceImage": "https://i.ibb.co/NjpmVmC/Barber-Services.jpg",
+    "serviceName": "Barber Services",
+    "servicePrice": "25",
+    "serviceArea": "Midtown",
+    "serviceDescription": "Experience the finest barber services for a fresh and clean haircut.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  },
+  {
+    "serviceImage": "https://i.ibb.co/0y9mqcC/Waxing-Threading.jpg",
+    "serviceName": "Waxing & Threading",
+    "servicePrice": "35",
+    "serviceArea": "Uptown",
+    "serviceDescription": "Achieve smooth and flawless skin with our waxing and threading services.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  },
+  {
+    "serviceImage": "https://i.ibb.co/VLYHZJf/Spa-Packages.jpg",
+    "serviceName": "Spa Packages",
+    "servicePrice": "100",
+    "serviceArea": "Suburbs",
+    "serviceDescription": "Indulge in our luxurious spa packages for the ultimate relaxation experience.",
+    "providerEmail": "mdkhaledsshuvo@gmail.com",
+    "providerImage": "https://lh3.googleusercontent.com/a/ACg8ocLIve0-Np2mPlq8ppXX-APLPqqTsdUzzqPE_gKggX07YrWXEhYc=s360-c-no",
+    "providerName": "Khaled",
+    "totalBookings": 0
+  }
+]
