@@ -187,18 +187,6 @@ const BookedServices = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-red-500">
-                      Provider Email {'(unchangeable)'}
-                    </label>
-                    <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
-                      type="text"
-                      required
-                      defaultValue={bookingToUpdate.providerEmail}
-                      name="providerEmail"
-                      readOnly
-                    />
-
-                    <label className="block mt-3 mb-1 text-red-500">
                       Provider Name {'(unchangeable)'}
                     </label>
                     <input
@@ -207,6 +195,18 @@ const BookedServices = () => {
                       required
                       defaultValue={bookingToUpdate.providerName}
                       name="providerName"
+                      readOnly
+                    />
+
+                    <label className="block mt-3 mb-1 text-red-500">
+                      Provider Email {'(unchangeable)'}
+                    </label>
+                    <input
+                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      type="email"
+                      required
+                      defaultValue={bookingToUpdate.providerEmail}
+                      name="providerEmail"
                       readOnly
                     />
                   </div>
@@ -229,7 +229,7 @@ const BookedServices = () => {
                     </label>
                     <input
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
-                      type="email"
+                      type="text"
                       required
                       name="user_email"
                       placeholder="Your email"

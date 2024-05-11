@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/manage-service',
+        path: '/manage-services',
         element: (
           <PrivateRoute>
             <ManageServices />

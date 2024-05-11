@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import {useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { IoLocationOutline } from 'react-icons/io5';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
@@ -36,6 +36,7 @@ const ServiceDetails = () => {
     const serviceId = _id;
     const customerEmail = user?.email;
     const customerName = user?.displayName;
+    const serviceStatus = 'Pending';
 
     const bookingInfo = {
       serviceId,
@@ -49,7 +50,12 @@ const ServiceDetails = () => {
       customerEmail,
       instruction,
       serviceTakingDate,
+      serviceStatus,
     };
+
+    // if (customerEmail === providerEmail) {
+    //   return toast.error("You can't book your own service");
+    // }
 
     try {
       const { data } = await axiosSecure.post(
@@ -173,7 +179,7 @@ const ServiceDetails = () => {
                     </label>
                     <input
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
-                      type="text"
+                      type="email"
                       required
                       defaultValue={providerEmail}
                       name="providerEmail"
@@ -211,10 +217,10 @@ const ServiceDetails = () => {
                     </label>
                     <input
                       className="w-full p-2 border rounded-lg focus:outline-red-500"
-                      type="email"
+                      type="text"
                       required
                       name="user_email"
-                      placeholder="Your email"
+                      placeholder="Your name"
                       defaultValue={user?.displayName}
                       readOnly
                     />

@@ -99,7 +99,7 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       isActive ? 'text-red-500' : 'hover:text-red-500'
                     }
-                    to="/manage-service"
+                    to="/manage-services"
                   >
                     Manage Service
                   </NavLink>
