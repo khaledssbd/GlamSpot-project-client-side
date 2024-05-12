@@ -107,7 +107,7 @@ const ManageServices = () => {
   return (
     <div className="my-10 sm:px-6">
       <Helmet>
-        <title>GlamSpot | My Services</title>
+        <title>GlamSpot | Manage Services</title>
       </Helmet>
 
       <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '20px' }}>

@@ -4,12 +4,8 @@ import useAuth from '../../hooks/useAuth';
 import { Helmet } from 'react-helmet-async';
 import { Typewriter } from 'react-simple-typewriter';
 import { Link } from 'react-router-dom';
-import deleteImg from '../../assets/delete.svg';
-import updateImg from '../../assets/update.svg';
 import eyeImg from '../../assets/eye.svg';
 import Swal from 'sweetalert2';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
 
 const ServiceToDo = () => {
   const [servicesToDo, setServicesToDo] = useState([]);
@@ -41,7 +37,7 @@ const ServiceToDo = () => {
   return (
     <div className="my-10">
       <Helmet>
-        <title>GlamSpot | All Services</title>
+        <title>GlamSpot | Service To Do</title>
       </Helmet>
 
       <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '20px' }}>

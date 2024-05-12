@@ -54,9 +54,7 @@ const ServiceDetails = () => {
     };
 
     // if (customerEmail === providerEmail) {
-    //   return toast.error("You can't book your own service", {
-    //     duration: 2000,
-    //   });
+    //   return toast.error("You can't book your own service");
     // }
 
     try {

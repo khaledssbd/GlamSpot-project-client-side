@@ -35,7 +35,7 @@ const BookedServices = () => {
     if (serviceStatus === 'Completed') {
       return toast.error(
         "You cannot delete a booking with the status 'Completed'.",
-        { duration: 2000 }
+        { duration: 3000 }
       );
     }
     Swal.fire({
@@ -71,8 +71,8 @@ const BookedServices = () => {
   const getDataForUpdate = async (id, serviceStatus) => {
     if (serviceStatus === 'Completed') {
       return toast.error(
-        "You cannot Update a booking with the status 'Completed'.",
-        { duration: 2000 }
+        "You cannot update a booking with the status 'Completed'.",
+        { duration: 3000 }
       );
     }
     const { data } = await axios.get(
@@ -108,7 +108,7 @@ const BookedServices = () => {
   return (
     <div className="my-10 sm:px-6">
       <Helmet>
-        <title>GlamSpot | My Bookings</title>
+        <title>GlamSpot | Booked Services</title>
       </Helmet>
 
       <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '20px' }}>

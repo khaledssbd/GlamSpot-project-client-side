@@ -26,9 +26,7 @@ const Login = () => {
       })
       .catch(error => {
         if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-          toast.error('Email or password is wrong, try again or reset..', {
-            duration: 2000,
-          });
+          toast.error('Email or password is wrong, try again or reset..');
         }
       });
   };

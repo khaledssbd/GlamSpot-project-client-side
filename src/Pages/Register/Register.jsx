@@ -100,9 +100,7 @@ const Register = () => {
       .catch(error => {
         if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
           navigate('/login');
-          toast.error('Account already exists. Please log in..', {
-            duration: 2000,
-          });
+          toast.error('Account already exists. Please log in..');
         } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
           setEmailError('Must use a valid email address');
         }

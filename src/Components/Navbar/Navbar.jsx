@@ -101,7 +101,7 @@ const Navbar = () => {
                     }
                     to="/manage-services"
                   >
-                    Manage Service
+                    Manage Services
                   </NavLink>
                 </li>
                 <li>
@@ -111,7 +111,7 @@ const Navbar = () => {
                     }
                     to="/booked-services"
                   >
-                    Booked Service
+                    Booked Services
                   </NavLink>
                 </li>
                 <li>
@@ -149,7 +149,7 @@ const Navbar = () => {
               }
               to="/manage-services"
             >
-              Manage Service
+              Manage Services
             </NavLink>
           </li>
           <li>
@@ -161,7 +161,7 @@ const Navbar = () => {
               }
               to="/booked-services"
             >
-              Booked Service
+              Booked Services
             </NavLink>
           </li>
           <li>
