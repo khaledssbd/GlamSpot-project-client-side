@@ -73,15 +73,20 @@ const ServiceDetails = () => {
 
   const cancelBooking = () => {
     setShowBookingForm(false);
+    setServiceTakingDate(new Date());
   };
 
   return (
     <div className="my-6 md:my-11">
       <Helmet>
-        <title>GlamSpot | Service: {_id}</title>
+        <title>GlamSpot | {serviceName}</title>
       </Helmet>
       <div className="flex justify-center items-center mb-5 md:mb-10 animate__animated animate__backInUp">
-        <img className="h-1/2 rounded-xl" src={serviceImage} alt="" />
+        <img
+          className="h-1/2 rounded-xl"
+          src={serviceImage}
+          alt={serviceName}
+        />
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
         <div className="col-span-2 flex flex-col gap-5 animate__animated animate__backInUp">
@@ -89,14 +94,7 @@ const ServiceDetails = () => {
             {serviceName}
           </h3>
 
-          <div className="ml-10 sm:20 md:ml-40">
-            <div className="flex gap-3 text-base font-normal">
-              Area:
-              <h3 className="flex items-center text-base font-semibold">
-                <IoLocationOutline /> {serviceArea}
-              </h3>
-            </div>
-
+          <div className="ml-10 sm:20 md:ml-40 space-y-3">
             <div className="flex gap-3 text-base font-normal">
               Price: ${servicePrice}
             </div>
@@ -117,12 +115,16 @@ const ServiceDetails = () => {
           <div className="lg:mt-28 ml-4 flex flex-col mb-6">
             <h3 className="text-base font-medium mb-2">Provider-</h3>
             <div className="flex justify-center items-center gap-4 mb-2 pb-2 border-t border-gray-300">
-              <div className="rounded-full object-cover overflow-hidden w-10 h-10">
+              <div className="rounded-full object-cover overflow-hidden w-14">
                 <img src={providerImage} alt={providerName} />
               </div>
               <div>
                 <p className="mt-2 text-sm  text-left">Name: {providerName}</p>
                 <p className="mt-2 text-sm text-left">Email: {providerEmail}</p>
+                <h3 className="mt-2 flex items-center">
+                  Area:
+                  <IoLocationOutline /> {serviceArea}
+                </h3>
               </div>
             </div>
             <div className="text-center mt-5">
@@ -262,6 +264,7 @@ const ServiceDetails = () => {
                       className="w-full p-2 border rounded-lg"
                       selected={serviceTakingDate}
                       onChange={date => setServiceTakingDate(date)}
+                      dateFormat="dd/MM/yyyy"
                     />
                   </div>
                 </div>

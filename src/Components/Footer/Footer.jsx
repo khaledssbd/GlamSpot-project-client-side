@@ -1,17 +1,13 @@
 import { Link } from 'react-router-dom';
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-} from 'react-icons/fa6';
+// import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter} from 'react-icons/fa6';
+import { FaFacebook, FaLinkedin } from 'react-icons/fa6';
 
 const Footer = () => {
   return (
     <footer className="mt-30 bg-[#030712] px-5 md:px-20">
       <footer className="footer footer-center mt-30 bg-[#030712] py-5 md:py-10 px-5 md:px-20 text-primary-content">
         <aside>
-          <div className="mb-5">
+          <div className="pb-2 mb-2 border-b">
             <Link
               to="/"
               className="btn btn-ghost hover:bg-white hover:text-black text-3xl md:text-4xl font-extrabold md:mb-4"
@@ -21,7 +17,7 @@ const Footer = () => {
                 <img
                   className="w-5 md:w-10 rounded-lg"
                   src="/favicon.png"
-                  alt=""
+                  alt="GlamSpot"
                 />
                 <span className="bg-gradient-to-r from-primary to-red-500 text-transparent bg-clip-text">
                   GlamSpot
@@ -41,16 +37,15 @@ const Footer = () => {
             Email: khaled@PH.com
           </p>
           <p className="text-white">Copyright © 2024 - All right reserved</p>
-        </aside>
-        <nav>
-          <div className="flex gap-4 text-xl md:text-3xl mb-3">
+
+          <div className="mt-3 flex justify-center items-center gap-4 text-xl md:text-3xl mb-3">
             <a
               href="https://www.facebook.com/mdkhaledsshuvo"
               className="text-[#1877F2] cursor-pointer"
             >
               <FaFacebook />
             </a>
-            <a
+            {/* <a
               href="https://twitter.com/mdkhaledsshuvo"
               className="text-[#1DA1F2] cursor-pointer"
             >
@@ -61,7 +56,7 @@ const Footer = () => {
               className="text-[#E1306C] cursor-pointer"
             >
               <FaInstagram />
-            </a>
+            </a> */}
             <a
               href="https://www.linkedin.com/in/mdkhaledsshuvo"
               className="text-[#0077B5] cursor-pointer"
@@ -69,7 +64,7 @@ const Footer = () => {
               <FaLinkedin />
             </a>
           </div>
-        </nav>
+        </aside>
       </footer>
     </footer>
   );

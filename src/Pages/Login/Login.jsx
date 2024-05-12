@@ -93,14 +93,14 @@ const Login = () => {
               socialSignIn(googleProvider);
             }}
           >
-            <img className="w-9" src={googleSvg} alt="" />
+            <img className="w-9" src={googleSvg} alt="Google" />
           </button>
           {/* <button
             onClick={() => {
               socialSignIn(facebookProvider);
             }}
           >
-            <img className="w-9" src={facebookSvg} alt="" />
+            <img className="w-9" src={facebookSvg} alt="Facebook" />
           </button> */}
         </div>
       </div>

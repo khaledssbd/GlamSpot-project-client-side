@@ -26,7 +26,7 @@
 - Adaptable & Robust
 - No lorem text and no javascript default alert
 
-# Selected category name- B9 A10 Type-01 Requirements (Southeast Asia)
+# Selected category name- Assignment_category_0002 (Beauty and Grooming Services)
 
 # npm Challenge Packages
 
@@ -35,7 +35,7 @@
 - npm i react-simple-typewriter (in hero section and title, 'Booked Services' page title)
 - npm install react-tooltip (in userImage which will be showed after login)
 
-# npm Packages
+# npm other Packages
 
 - npm i aos
 - npm i swiper

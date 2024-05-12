@@ -230,9 +230,19 @@ const Navbar = () => {
       <div className="navbar-end">
         {/* Dark theme toggle */}
         {theme === 'light' ? (
-          <img onClick={handleToggle} className="w-10" src={MOON} alt="" />
+          <img
+            onClick={handleToggle}
+            className="w-10"
+            src={MOON}
+            alt="GlamSpot"
+          />
         ) : (
-          <img onClick={handleToggle} className="w-10" src={LIGHT} alt="" />
+          <img
+            onClick={handleToggle}
+            className="w-10"
+            src={LIGHT}
+            alt="GlamSpot"
+          />
         )}
         {/* User image part */}
         {user ? (

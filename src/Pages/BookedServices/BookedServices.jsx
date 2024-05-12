@@ -6,11 +6,12 @@ import Swal from 'sweetalert2';
 import { Typewriter } from 'react-simple-typewriter';
 import deleteImg from '../../assets/delete.svg';
 import updateImg from '../../assets/update.svg';
+import eyeImg from '../../assets/eye.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import eyeImg from '../../assets/eye.svg';
+import toast from 'react-hot-toast';
 
 const BookedServices = () => {
   const { user } = useAuth();
@@ -30,7 +31,8 @@ const BookedServices = () => {
   const refetch = () => {
     setFetchNow(!fetchNow);
   };
-  const handleDelete = id => {
+  const handleDelete = (id, serviceStatus) => {
+    
     Swal.fire({
       title: 'Confirm to delete?',
       text: "You won't be able to revert this!",
@@ -122,6 +124,7 @@ const BookedServices = () => {
                 <th className="text-sm text-black">Price</th>
                 <th className="text-sm text-black">Provider Name</th>
                 <th className="text-sm text-black">Service Taking Date</th>
+                <th className="text-sm text-black">Status</th>
                 <th className="text-sm text-black">View Service</th>
                 <th className="text-sm text-black">Update</th>
                 <th className="text-sm text-black">Delete</th>
@@ -137,8 +140,16 @@ const BookedServices = () => {
                   <td>$ {booking.servicePrice}</td>
                   <td>{booking.providerName}</td>
                   <td>
-                    {new Date(booking.serviceTakingDate).toLocaleDateString()}
+                    {new Date(booking.serviceTakingDate).toLocaleDateString(
+                      'en-GB',
+                      {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      }
+                    )}
                   </td>
+                  <td>{booking.serviceStatus}</td>
                   <td>
                     <Link to={`/service/${booking.serviceId}`}>
                       <img src={eyeImg} alt="view-booking" className="w-6" />
@@ -154,7 +165,11 @@ const BookedServices = () => {
                     </div>
                   </td>
                   <td>
-                    <div onClick={() => handleDelete(booking._id)}>
+                    <div
+                      onClick={() =>
+                        handleDelete(booking._id, booking.serviceStatus)
+                      }
+                    >
                       <img
                         src={deleteImg}
                         alt="delete-booking"
@@ -297,6 +312,7 @@ const BookedServices = () => {
                       className="w-full p-2 border rounded-lg"
                       selected={serviceTakingDate}
                       onChange={date => setServiceTakingDate(date)}
+                      dateFormat="dd/MM/yyyy"
                     />
                   </div>
                 </div>

@@ -38,19 +38,33 @@ const PopularServices = ({ allServices }) => {
             >
               <div className="flex justify-center items-center">
                 <img
-                  className="h-64 rounded-lg"
+                  className="h-64 rounded-lg border border-black"
                   src={service.serviceImage}
-                  alt=""
+                  alt={service.serviceName}
                 />
               </div>
-              <h3 className="font-medium text-lg my-5 text-red-600">
-                Area: {service.serviceArea}
+              <h3 className="font-medium text-xl my-3 text-black">
+                {service.serviceName}
               </h3>
+              <div className="flex gap-3 mx-5 mb-3 text-base text-black font-normal">
+                Price: ${service.servicePrice}
+              </div>
+
               <p className="font-medium text-sm text-gray-700 text-justify mx-5 flex-grow">
-                {service.serviceDescription}
+                {service.serviceDescription.slice(0, 100)}
               </p>
+
+              <div className="mx-5 mt-2 flex items-center gap-4 mb-2 border-t border-gray-300">
+                <div className="rounded-full object-cover overflow-hidden w-10 h-10">
+                  <img src={service.providerImage} alt={service.providerName} />
+                </div>
+
+                <p className="text-base text-black text-left">
+                  By: {service.providerName}
+                </p>
+              </div>
               <Link to={`/service/${service._id}`}>
-                <button className="btn btn-primary text-white bg-blue-700 mt-5">
+                <button className="btn btn-primary text-white bg-blue-700 hover:bg-red-500">
                   View Details
                 </button>
               </Link>
