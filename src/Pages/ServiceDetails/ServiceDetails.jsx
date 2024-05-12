@@ -140,20 +140,20 @@ const ServiceDetails = () => {
       </div>
       {showBookingForm && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
-          <div className="w-2/3 h-5/6 rounded bg-blue-200 text-center">
-            <h3 className="mt-8 text-xl font-bold">
+          <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-200 text-center">
+            <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold">
               Book the service ({serviceName})
             </h3>
-            <div className="mt-8 mx-auto w-full md:w-2/3">
+            <div className="md:mt-8 mx-auto w-full md:w-2/3">
               <form onSubmit={handleBooking}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-8">
                   {/* Left side */}
                   <div className="flex-1">
-                    <label className="block mt-4 mb-1 text-red-500">
+                    <label className="block mt-4 mb-1 text-sm text-red-500">
                       Service Name {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={serviceName}
@@ -161,11 +161,11 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-sm text-red-500">
                       Service Image (1440px × 960px suits best)
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={serviceImage}
@@ -173,11 +173,11 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-sm text-red-500">
                       Service ID {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={_id}
@@ -185,11 +185,11 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-sm text-red-500">
                       Provider Email {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="email"
                       required
                       defaultValue={providerEmail}
@@ -197,11 +197,11 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-sm text-red-500">
                       Provider Name {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={providerName}
@@ -211,11 +211,11 @@ const ServiceDetails = () => {
                   </div>
                   {/* Right side */}
                   <div className="flex-1">
-                    <label className="block mt-4 mb-1 text-red-500">
+                    <label className="block mt-4 mb-1 text-sm text-red-500">
                       Price in $ {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={servicePrice}
@@ -223,11 +223,11 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-sm text-red-500">
                       Your name {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       name="user_email"
@@ -236,11 +236,11 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-sm text-red-500">
                       Your Email {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="email"
                       required
                       name="user_email"
@@ -249,9 +249,11 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1">Your instruction</label>
+                    <label className="block mt-3 mb-1 text-sm">
+                      Your instruction
+                    </label>
                     <textarea
-                      className="w-full p-2 border rounded-lg focus:outline-green-500"
+                      className="w-full p-2 border rounded-lg text-sm focus:outline-green-500"
                       name="instruction"
                       required
                       placeholder="Enter your instruction"
@@ -259,9 +261,11 @@ const ServiceDetails = () => {
                       rows="2"
                     />
 
-                    <label className="block mt-1">Service taking date</label>
+                    <label className="block mt-1 text-sm">
+                      Service taking date
+                    </label>
                     <DatePicker
-                      className="w-full p-2 border rounded-lg"
+                      className="w-full p-2 border rounded-lg text-sm"
                       selected={serviceTakingDate}
                       onChange={date => setServiceTakingDate(date)}
                       dateFormat="dd/MM/yyyy"
@@ -269,12 +273,12 @@ const ServiceDetails = () => {
                   </div>
                 </div>
                 <input
-                  className="mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                   type="submit"
                   value="Purchase"
                 />
                 <button
-                  className="ml-10 mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="ml-10 mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                   onClick={cancelBooking}
                 >
                   Not Now

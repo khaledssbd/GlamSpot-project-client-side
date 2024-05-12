@@ -160,7 +160,20 @@ const BookedServices = () => {
                       }
                     )}
                   </td>
-                  <td>{booking.serviceStatus}</td>
+                  <td
+                    className={`inline-flex items-center mt-2 px-3 py-1 rounded-full gap-x-2 ${
+                      booking.serviceStatus === 'Pending' &&
+                      'bg-yellow-100/90 text-yellow-600'
+                    } ${
+                      booking.serviceStatus === 'Working' &&
+                      'bg-blue-100/90 text-blue-500'
+                    } ${
+                      booking.serviceStatus === 'Completed' &&
+                      'bg-emerald-100/90 text-emerald-600'
+                    }`}
+                  >
+                    {booking.serviceStatus}
+                  </td>
                   <td>
                     <Link to={`/service/${booking.serviceId}`}>
                       <img src={eyeImg} alt="view-booking" className="w-6" />
