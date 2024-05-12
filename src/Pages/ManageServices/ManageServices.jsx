@@ -181,48 +181,50 @@ const ManageServices = () => {
       {showUpdateModal && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
           <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-300 text-center">
-            <h3 className="mt-8 text-xl font-bold">
+            <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold">
               Update the service ({serviceToUpdate.serviceName})
             </h3>
-            <div className="mt-8 mx-auto w-full md:w-2/3">
+            <div className="md:mt-8 mx-auto w-full md:w-2/3">
               <form onSubmit={handleUpdateService}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-8">
                   {/* Left side */}
                   <div className="flex-1">
-                    <label className="block mt-4 mb-1">Service Name</label>
+                    <label className="block mt-4 mb-1 text-sm">
+                      Service Name
+                    </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-green-500"
+                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.serviceName}
                       name="serviceName"
                     />
 
-                    <label className="block mt-3 mb-1">
+                    <label className="block mt-3 mb-1 text-sm">
                       Service Image (1440px × 960px suits best)
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-green-500"
+                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.serviceImage}
                       name="serviceImage"
                     />
 
-                    <label className="block mt-4 mb-1">Service Area</label>
+                    <label className="block mt-4 mb-1 text-sm">Service Area</label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-green-500"
+                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.serviceArea}
                       name="serviceArea"
                     />
 
-                    <label className="block mt-3 mb-1">
+                    <label className="block mt-3 mb-1 text-sm">
                       Service Description
                     </label>
                     <textarea
-                      className="w-full p-2 border rounded-lg focus:outline-green-500"
+                      className="w-2/3 p-2 border rounded-lg focus:outline-green-500 text-sm"
                       name="serviceDescription"
                       required
                       placeholder="Enter your instruction"
@@ -233,20 +235,20 @@ const ManageServices = () => {
                   </div>
                   {/* Right side */}
                   <div className="flex-1">
-                    <label className="block mt-3 mb-1">Service Price</label>
+                    <label className="block mt-3 mb-1 text-sm">Service Price</label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-green-500"
+                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.servicePrice}
                       name="servicePrice"
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
                       Your Name {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.providerName}
@@ -254,22 +256,22 @@ const ManageServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
                       Your Email {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="email"
                       required
                       defaultValue={serviceToUpdate.providerEmail}
                       name="providerEmail"
                       readOnly
                     />
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
                       Your Image {'(unchangeable)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.providerImage}
