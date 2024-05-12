@@ -214,8 +214,8 @@ const BookedServices = () => {
         <h3 className="mt-20 text-xl font-bold">No booking yet</h3>
       )}
       {showUpdateModal && (
-        <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
-          <div className="w-2/3 h-5/6 rounded bg-blue-200 text-center">
+        <div className="fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
+          <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-200 text-center">
             <h3 className="mt-8 text-xl font-bold">
               Update the booking ({bookingToUpdate.serviceName})
             </h3>

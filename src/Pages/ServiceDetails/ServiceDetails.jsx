@@ -139,14 +139,14 @@ const ServiceDetails = () => {
         </div>
       </div>
       {showBookingForm && (
-        <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
+        <div className="fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
           <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-200 text-center">
             <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold">
               Book the service ({serviceName})
             </h3>
             <div className="md:mt-8 mx-auto w-full md:w-2/3">
               <form onSubmit={handleBooking}>
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-4">
                   {/* Left side */}
                   <div className="flex-1">
                     <label className="block mt-4 mb-1 text-sm text-red-500">
