@@ -46,7 +46,9 @@ const AddService = () => {
         }
       })
       .catch(err => {
-        toast.error(err.message);
+        toast.error(err.message, {
+          duration: 2000,
+        });
       });
   };
   return (

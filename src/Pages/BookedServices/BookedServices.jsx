@@ -33,7 +33,10 @@ const BookedServices = () => {
   };
   const handleDelete = (id, serviceStatus) => {
     if (serviceStatus === 'Completed') {
-      return toast.error("You cannot delete a booking with the status 'Completed'.");
+      return toast.error(
+        "You cannot delete a booking with the status 'Completed'.",
+        { duration: 2000 }
+      );
     }
     Swal.fire({
       title: 'Confirm to delete?',
@@ -65,7 +68,13 @@ const BookedServices = () => {
     });
   };
 
-  const getDataForUpdate = async id => {
+  const getDataForUpdate = async (id, serviceStatus) => {
+    if (serviceStatus === 'Completed') {
+      return toast.error(
+        "You cannot Update a booking with the status 'Completed'.",
+        { duration: 2000 }
+      );
+    }
     const { data } = await axios.get(
       `${import.meta.env.VITE_API_URL}/booking-details/${id}`
     );
@@ -158,7 +167,11 @@ const BookedServices = () => {
                     </Link>
                   </td>
                   <td>
-                    <div onClick={() => getDataForUpdate(booking._id)}>
+                    <div
+                      onClick={() =>
+                        getDataForUpdate(booking._id, booking.serviceStatus)
+                      }
+                    >
                       <img
                         src={updateImg}
                         alt="update-booking"
