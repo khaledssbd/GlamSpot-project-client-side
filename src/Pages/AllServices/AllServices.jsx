@@ -42,7 +42,7 @@ const AllServices = () => {
   }, []);
 
   const numberOfPages = Math.ceil(count / itemsPerPage);
-  const pages = [...Array(numberOfPages).keys()].map(element => element + 1);
+  const pages = [...Array(numberOfPages).keys()]?.map(element => element + 1);
 
   //  handle pagination button
   const handlePaginationButton = value => {
@@ -167,7 +167,7 @@ const AllServices = () => {
           )}
         </div>
         <div className="grid grid-cols-1 gap-4 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3">
-          {services.map(service => (
+          {services?.map(service => (
             <ServiceCard key={service._id} service={service} />
           ))}
         </div>
@@ -201,7 +201,7 @@ const AllServices = () => {
           </div>
         </button>
         {/* Numbers */}
-        {pages.map(btnNum => (
+        {pages?.map(btnNum => (
           <button
             onClick={() => handlePaginationButton(btnNum)}
             key={btnNum}

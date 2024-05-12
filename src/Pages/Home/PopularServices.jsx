@@ -30,7 +30,7 @@ const PopularServices = ({ allServices }) => {
       </h4>
       <div className="my-16 flex justify-center items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allServices?.slice(2, 8).map(service => (
+          {allServices?.slice(2, 8)?.map(service => (
             <div
               key={service._id}
               className="p-3 bg-gray-300 rounded-xl flex flex-col"
