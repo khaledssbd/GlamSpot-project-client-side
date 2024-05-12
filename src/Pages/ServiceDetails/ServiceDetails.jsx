@@ -71,6 +71,11 @@ const ServiceDetails = () => {
     }
   };
 
+  const cancelBooking = () => {
+    setShowBookingForm(false);
+
+  }
+
   return (
     <div className="my-6 md:my-11">
       <Helmet>
@@ -85,29 +90,31 @@ const ServiceDetails = () => {
             {serviceName}
           </h3>
 
-          <div className="flex gap-3 text-base font-normal">
-            Area:
-            <h3 className="flex items-center text-base font-semibold">
-              <IoLocationOutline /> {serviceArea}
-            </h3>
-          </div>
+          <div className="ml-10 sm:20 md:ml-40">
+            <div className="flex gap-3 text-base font-normal">
+              Area:
+              <h3 className="flex items-center text-base font-semibold">
+                <IoLocationOutline /> {serviceArea}
+              </h3>
+            </div>
 
-          <div className="flex gap-3 text-base font-normal">
-            Price: ${servicePrice}
-          </div>
-          <div className="flex gap-3 text-base font-normal">
-            Bookings: {totalBookings}
-          </div>
-          <div className="text-left">
-            <h3 className="text-start text-base font-normal">
-              Description: {serviceDescription}
-            </h3>
+            <div className="flex gap-3 text-base font-normal">
+              Price: ${servicePrice}
+            </div>
+            <div className="flex gap-3 text-base font-normal">
+              Bookings: {totalBookings}
+            </div>
+            <div className="text-left">
+              <h3 className="text-start text-base font-normal">
+                Description: {serviceDescription}
+              </h3>
+            </div>
           </div>
 
           <div className="flex gap-2 mt-5"></div>
         </div>
 
-        <div className="animate__animated animate__backInUp min-w-56">
+        <div className="animate__animated animate__backInUp min-w-80 ml-20 lg:ml-0">
           <div className="lg:mt-28 ml-4 flex flex-col mb-6">
             <h3 className="text-base font-medium mb-2">Provider-</h3>
             <div className="flex justify-center items-center gap-4 mb-2 pb-2 border-t border-gray-300">
@@ -132,7 +139,10 @@ const ServiceDetails = () => {
       </div>
       {showBookingForm && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
-          <div className="w-2/3 h-5/6 rounded bg-red-200 text-center">
+          <div className="w-2/3 h-5/6 rounded bg-blue-200 text-center">
+            <h3 className="mt-8 text-xl font-bold">
+              Book the service ({serviceName})
+            </h3>
             <div className="mt-8 mx-auto w-full md:w-2/3">
               <form onSubmit={handleBooking}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -261,6 +271,12 @@ const ServiceDetails = () => {
                   type="submit"
                   value="Purchase"
                 />
+                <button
+                  className="ml-10 mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  onClick={cancelBooking}
+                >
+                  Not Now
+                </button>
               </form>
             </div>
           </div>

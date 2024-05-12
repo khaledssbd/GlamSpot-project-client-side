@@ -86,6 +86,10 @@ const BookedServices = () => {
     }
   };
 
+  const cancelUpdating = () => {
+    setShowUpdateModal(false);
+    setBookingToUpdate({});
+  }
   return (
     <div className="my-10 sm:px-6">
       <Helmet>
@@ -144,7 +148,10 @@ const BookedServices = () => {
       </div>
       {showUpdateModal && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
-          <div className="w-2/3 h-5/6 rounded bg-red-200 text-center">
+          <div className="w-2/3 h-5/6 rounded bg-blue-200 text-center">
+            <h3 className="mt-8 text-xl font-bold">
+              Update the booking ({bookingToUpdate.serviceName})
+            </h3>
             <div className="mt-8 mx-auto w-full md:w-2/3">
               <form onSubmit={handleUpdateBooking}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -274,6 +281,12 @@ const BookedServices = () => {
                   type="submit"
                   value="Update"
                 />
+                <button
+                  className="ml-10 mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  onClick={cancelUpdating}
+                >
+                  Not Now
+                </button>
               </form>
             </div>
           </div>

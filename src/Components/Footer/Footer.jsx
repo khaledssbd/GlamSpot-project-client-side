@@ -8,37 +8,41 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="mt-30 bg-[#030712] py-5 md:py-10 px-5 md:px-20">
-      <div className="flex justify-between items-center">
-        <div className="mb-12 text-start">
-          <Link
-            to="/"
-            className="btn btn-ghost hover:bg-white hover:text-black text-base md:text-4xl font-extrabold md:mb-4"
-            data-aos="flip-up"
-          >
-            <button className="flex justify-center items-center gap-1 md:gap-2">
-              <img
-                className="w-5 md:w-10 rounded-lg"
-                src="/favicon.png"
-                alt=""
-              />
-              <span className="bg-gradient-to-r from-primary to-red-500 text-transparent bg-clip-text">
-                GlamSpot
-              </span>{' '}
-            </button>
-          </Link>
-          <p
-            className="text-[#FFFFFFCC] text-sm md:text-lg font-normal"
-            data-aos="zoom-out-right"
-          >
-            GlamSpot is the most popular platform for your <br /> next tourism
-            arrangement.
+    <footer className="mt-30 bg-[#030712] py-5 px-5 md:px-20">
+      <footer className="footer footer-center mt-30 bg-[#030712] py-5 md:py-10 px-5 md:px-20 text-primary-content">
+        <aside>
+          <div className="mb-5">
+            <Link
+              to="/"
+              className="btn btn-ghost hover:bg-white hover:text-black text-3xl md:text-4xl font-extrabold md:mb-4"
+              data-aos="flip-up"
+            >
+              <button className="flex justify-center items-center gap-1 md:gap-2">
+                <img
+                  className="w-5 md:w-10 rounded-lg"
+                  src="/favicon.png"
+                  alt=""
+                />
+                <span className="bg-gradient-to-r from-primary to-red-500 text-transparent bg-clip-text">
+                  GlamSpot
+                </span>
+              </button>
+            </Link>
+            <p
+              className="text-white text-sm md:text-lg font-normal"
+              data-aos="zoom-out-right"
+            >
+              GlamSpot is the most popular platform for your <br /> next tourism
+              arrangement.
+            </p>
+          </div>
+          <p className="font-bold text-white">
+            228C San Pablo St. Vallejo, CA 94591 <br />
+            Email: khaled@PH.com
           </p>
-        </div>
-        <div className="flex flex-col items-center">
-          <h4 className="text-white text-xs sm:text-base md:text-xl font-semibold mb-2 md:mb-5">
-            Social Links
-          </h4>
+          <p className="text-white">Copyright © 2024 - All right reserved</p>
+        </aside>
+        <nav>
           <div className="flex gap-4 text-xl md:text-3xl mb-3">
             <a
               href="https://www.facebook.com/mdkhaledsshuvo"
@@ -65,47 +69,8 @@ const Footer = () => {
               <FaLinkedin />
             </a>
           </div>
-          <h4 className="text-white text-xs sm:text-base md:text-lg font-normal">
-            Address:-
-          </h4>
-          <h4 className="text-white text-xs sm:text-base">
-            228C San Pablo St. Vallejo, CA 94591
-          </h4>
-          <h4 className="text-gray-300 text-xs sm:text-sm">
-            Email: khaled@PH.com
-          </h4>
-        </div>
-      </div>
-      <hr />
-      <div className="mt-8 flex justify-between items-center">
-        <div>
-          <h5 className="text-white hidden sm:flex font-normal">
-            Copyright © 2024 - All right reserved by GlamSpot
-          </h5>
-        </div>
-        <div className="flex gap-8">
-          <div>
-            <h5 className="text-white text-sm md:text-base font-medium">
-              Terms & condition
-            </h5>
-          </div>
-          <div>
-            <h5 className="text-white text-sm md:text-base font-medium">
-              Return & refund policy
-            </h5>
-          </div>
-          <div>
-            <h5 className="text-white text-sm md:text-base font-medium">
-              Privacy policy
-            </h5>
-          </div>
-        </div>
-      </div>
-      <div className="flex justify-center mt-5">
-        <h5 className="text-[#FFFFFFB2] flex sm:hidden font-normal text-sm md:text-sm">
-          Copyright © 2024 - All right reserved by GlamSpot
-        </h5>
-      </div>
+        </nav>
+      </footer>
     </footer>
   );
 };
