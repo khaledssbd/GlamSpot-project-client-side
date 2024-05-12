@@ -2,7 +2,6 @@ import {
   Autoplay,
   Navigation,
   Pagination,
-  Scrollbar,
   A11y,
 } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -35,11 +34,10 @@ const SwiperSlides = ({ allServices }) => {
           centeredSlides={true}
           loop={true}
           coverflowEffect={{ rotate: 0, stretch: 0, depth: 100, modifier: 1 }}
-          modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
+          modules={[Autoplay, Navigation, Pagination, A11y]}
           spaceBetween={10}
           slidesPerView={2}
           pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
         >
           {allServices?.map((s, i) => (
             <SwiperSlide key={i}>
