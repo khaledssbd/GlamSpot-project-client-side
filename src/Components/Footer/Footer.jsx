@@ -8,7 +8,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="mt-30 bg-[#030712] py-5 px-5 md:px-20">
+    <footer className="mt-30 bg-[#030712] px-5 md:px-20">
       <footer className="footer footer-center mt-30 bg-[#030712] py-5 md:py-10 px-5 md:px-20 text-primary-content">
         <aside>
           <div className="mb-5">
