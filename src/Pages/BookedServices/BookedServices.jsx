@@ -32,7 +32,9 @@ const BookedServices = () => {
     setFetchNow(!fetchNow);
   };
   const handleDelete = (id, serviceStatus) => {
-    
+    if (serviceStatus === 'Completed') {
+      return toast.error("You cannot delete a booking with the status 'Completed'.");
+    }
     Swal.fire({
       title: 'Confirm to delete?',
       text: "You won't be able to revert this!",
