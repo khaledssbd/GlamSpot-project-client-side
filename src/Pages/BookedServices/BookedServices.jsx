@@ -9,6 +9,8 @@ import updateImg from '../../assets/update.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import eyeImg from '../../assets/eye.svg';
 
 const BookedServices = () => {
   const { user } = useAuth();
@@ -89,14 +91,14 @@ const BookedServices = () => {
   const cancelUpdating = () => {
     setShowUpdateModal(false);
     setBookingToUpdate({});
-  }
+  };
   return (
     <div className="my-10 sm:px-6">
       <Helmet>
         <title>GlamSpot | My Bookings</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold' }}>
+      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '20px' }}>
         <Typewriter
           words={['My Booked Services']}
           loop={50}
@@ -108,44 +110,66 @@ const BookedServices = () => {
         />
       </span>
 
-      <div className="overflow-x-auto rounded-2xl border border-black mt-8">
-        <table className="table table-zebra">
-          {/* head starts here */}
-          <thead className="bg-green-400">
-            <tr>
-              <th className="text-sm text-black">Sl</th>
-              <th className="text-sm text-black">Service Name</th>
-              <th className="text-sm text-black">Area</th>
-              <th className="text-sm text-black">Price</th>
-              <th className="text-sm text-black">Provider Name</th>
-              <th className="text-sm text-black">Update</th>
-              <th className="text-sm text-black">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row starts here */}
-            {bookings?.map((booking, i) => (
-              <tr key={booking._id}>
-                <th>{i + 1}.</th>
-                <td>{booking.serviceName}</td>
-                <td>{booking.serviceArea}</td>
-                <td>$ {booking.servicePrice}</td>
-                <td>{booking.providerName}</td>
-                <td>
-                  <div onClick={() => getDataForUpdate(booking._id)}>
-                    <img src={updateImg} alt="update-booking" className="w-6" />
-                  </div>
-                </td>
-                <td>
-                  <div onClick={() => handleDelete(booking._id)}>
-                    <img src={deleteImg} alt="delete-booking" className="w-6" />
-                  </div>
-                </td>
+      {bookings.length > 0 ? (
+        <div className="overflow-x-auto rounded-2xl border border-black mt-8">
+          <table className="table table-zebra">
+            {/* head starts here */}
+            <thead className="bg-green-400">
+              <tr>
+                <th className="text-sm text-black">Sl</th>
+                <th className="text-sm text-black">Service Name</th>
+                <th className="text-sm text-black">Area</th>
+                <th className="text-sm text-black">Price</th>
+                <th className="text-sm text-black">Provider Name</th>
+                <th className="text-sm text-black">Service Taking Date</th>
+                <th className="text-sm text-black">View Service</th>
+                <th className="text-sm text-black">Update</th>
+                <th className="text-sm text-black">Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {/* row starts here */}
+              {bookings?.map((booking, i) => (
+                <tr key={booking._id}>
+                  <th>{i + 1}.</th>
+                  <td>{booking.serviceName}</td>
+                  <td>{booking.serviceArea}</td>
+                  <td>$ {booking.servicePrice}</td>
+                  <td>{booking.providerName}</td>
+                  <td>
+                    {new Date(booking.serviceTakingDate).toLocaleDateString()}
+                  </td>
+                  <td>
+                    <Link to={`/service/${booking.serviceId}`}>
+                      <img src={eyeImg} alt="view-booking" className="w-6" />
+                    </Link>
+                  </td>
+                  <td>
+                    <div onClick={() => getDataForUpdate(booking._id)}>
+                      <img
+                        src={updateImg}
+                        alt="update-booking"
+                        className="w-6"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div onClick={() => handleDelete(booking._id)}>
+                      <img
+                        src={deleteImg}
+                        alt="delete-booking"
+                        className="w-6"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <h3 className="mt-20 text-xl font-bold">No booking yet</h3>
+      )}
       {showUpdateModal && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
           <div className="w-2/3 h-5/6 rounded bg-blue-200 text-center">

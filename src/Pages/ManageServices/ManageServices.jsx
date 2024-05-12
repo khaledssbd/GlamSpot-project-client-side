@@ -7,6 +7,9 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import axios from 'axios';
 import deleteImg from '../../assets/delete.svg';
 import updateImg from '../../assets/update.svg';
+import eyeImg from '../../assets/eye.svg';
+import { Link } from 'react-router-dom';
+
 
 const ManageServices = () => {
   const { user } = useAuth();
@@ -119,44 +122,62 @@ const ManageServices = () => {
         />
       </span>
 
-      <div className="overflow-x-auto rounded-2xl border border-black mt-8">
-        <table className="table table-zebra">
-          {/* head starts here */}
-          <thead className="bg-green-400">
-            <tr>
-              <th className="text-sm text-black">Sl</th>
-              <th className="text-sm text-black">Service Name</th>
-              <th className="text-sm text-black">Area</th>
-              <th className="text-sm text-black">Price</th>
-              <th className="text-sm text-black">Total Bookings</th>
-              <th className="text-sm text-black">Update</th>
-              <th className="text-sm text-black">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row starts here */}
-            {services?.map((service, i) => (
-              <tr key={service._id}>
-                <th>{i + 1}.</th>
-                <td>{service.serviceName}</td>
-                <td>{service.serviceArea}</td>
-                <td>$ {service.servicePrice}</td>
-                <td>{service.totalBookings}</td>
-                <td>
-                  <div onClick={() => getDataForUpdate(service._id)}>
-                    <img src={updateImg} alt="update-booking" className="w-6" />
-                  </div>
-                </td>
-                <td>
-                  <div onClick={() => handleDelete(service._id)}>
-                    <img src={deleteImg} alt="delete-booking" className="w-6" />
-                  </div>
-                </td>
+      {services.length > 0 ? (
+        <div className="overflow-x-auto rounded-2xl border border-black mt-8">
+          <table className="table table-zebra">
+            {/* head starts here */}
+            <thead className="bg-green-400">
+              <tr>
+                <th className="text-sm text-black">Sl</th>
+                <th className="text-sm text-black">Service Name</th>
+                <th className="text-sm text-black">Area</th>
+                <th className="text-sm text-black">Price</th>
+                <th className="text-sm text-black">Total Bookings</th>
+                <th className="text-sm text-black">View Service</th>
+                <th className="text-sm text-black">Update</th>
+                <th className="text-sm text-black">Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {/* row starts here */}
+              {services?.map((service, i) => (
+                <tr key={service._id}>
+                  <th>{i + 1}.</th>
+                  <td>{service.serviceName}</td>
+                  <td>{service.serviceArea}</td>
+                  <td>$ {service.servicePrice}</td>
+                  <td>{service.totalBookings}</td>
+                  <td>
+                    <Link to={`/service/${service._id}`}>
+                      <img src={eyeImg} alt="view-booking" className="w-6" />
+                    </Link>
+                  </td>
+                  <td>
+                    <div onClick={() => getDataForUpdate(service._id)}>
+                      <img
+                        src={updateImg}
+                        alt="update-booking"
+                        className="w-6"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div onClick={() => handleDelete(service._id)}>
+                      <img
+                        src={deleteImg}
+                        alt="delete-booking"
+                        className="w-6"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <h3 className="mt-20 text-xl font-bold">No service yet</h3>
+      )}
       {showUpdateModal && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
           <div className="w-2/3 h-5/6 rounded bg-blue-300 text-center">

@@ -64,7 +64,7 @@ const ServiceDetails = () => {
       );
       if (data.insertedId) {
         toast.success('Booking done Successfully!');
-        navigate('/booked-service');
+        navigate('/booked-services');
       }
     } catch (error) {
       toast.success(error.response.data);
@@ -73,8 +73,7 @@ const ServiceDetails = () => {
 
   const cancelBooking = () => {
     setShowBookingForm(false);
-
-  }
+  };
 
   return (
     <div className="my-6 md:my-11">

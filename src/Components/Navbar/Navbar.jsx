@@ -109,7 +109,7 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       isActive ? 'text-red-500' : 'hover:text-red-500'
                     }
-                    to="/booked-service"
+                    to="/booked-services"
                   >
                     Booked Service
                   </NavLink>
@@ -147,7 +147,7 @@ const Navbar = () => {
                   ? 'text-red-500 border-b-4 border-red-500 flex lg:hidden'
                   : 'hover:text-red-500 flex lg:hidden'
               }
-              to="/manage-service"
+              to="/manage-services"
             >
               Manage Service
             </NavLink>
@@ -159,7 +159,7 @@ const Navbar = () => {
                   ? 'text-red-500 border-b-4 border-red-500 flex lg:hidden'
                   : 'hover:text-red-500 flex lg:hidden'
               }
-              to="/booked-service"
+              to="/booked-services"
             >
               Booked Service
             </NavLink>
