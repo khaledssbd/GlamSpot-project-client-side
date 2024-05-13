@@ -55,8 +55,8 @@ const Navbar = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? 'text-red-500 border-b-4 border-red-500 mr-2'
-              : 'hover:text-red-500 mr-2'
+              ? 'font-bold text-red-500 border-b-4 border-red-500 mr-2'
+              : 'font-bold hover:text-red-500 mr-2'
           }
           to="/"
         >
@@ -67,8 +67,8 @@ const Navbar = () => {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? 'text-red-500 border-b-4 border-red-500 mr-2'
-              : 'hover:text-red-500 mr-2'
+              ? 'font-bold text-red-500 border-b-4 border-red-500 mr-2'
+              : 'font-bold hover:text-red-500 mr-2'
           }
           to="/all-services"
         >
@@ -78,10 +78,11 @@ const Navbar = () => {
       {user && (
         <>
           <li>
-            <div className="hidden lg:flex dropdown dropdown-bottom">
-              <div className="hover:text-red-500" tabIndex={0}>
-                Dashboard
-              </div>
+            <div
+              className="hidden lg:flex dropdown dropdown-bottom"
+              tabIndex={0}
+            >
+              <div className="font-bold hover:text-red-500">Dashboard</div>
               <ul
                 tabIndex={0}
                 className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
