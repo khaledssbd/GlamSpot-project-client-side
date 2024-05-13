@@ -33,8 +33,8 @@ const Login = () => {
 
   const socialSignIn = provider => {
     signInWithSocial(provider).then(() => {
-      navigate(location?.state ? location.state : '/update-profile');
-      toast.success('Successfully signed in');
+      navigate(location?.state ? location.state : '/');
+      toast.success('Successfully logged in');
     });
   };
 
