@@ -46,7 +46,7 @@ const Navbar = () => {
       .then(() => {
         toast.success('You logged out successfully!');
       })
-      .catch(error => console.error(error));
+      .catch(error => toast.error(error));
   };
 
   const navLinks = (

@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="pb-2 mb-2 border-b">
             <Link
               to="/"
-              className="btn btn-ghost hover:bg-white hover:text-black text-3xl md:text-4xl font-extrabold md:mb-4"
+              className="btn btn-ghost hover:bg-gray-800 hover:text-black text-3xl md:text-4xl font-extrabold md:mb-4"
               data-aos="flip-up"
             >
               <button className="flex justify-center items-center gap-1 md:gap-2">
