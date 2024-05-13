@@ -58,7 +58,7 @@ const AddService = () => {
       <div className="text-center">
         {/* <h3 className="text-2xl font-bold">Add your service</h3> */}
         <span
-          style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}
+          style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}
         >
           <Typewriter
             words={['Add your service']}
@@ -166,7 +166,7 @@ const AddService = () => {
               </div>
             </div>
             <input
-              className="mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+              className="mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-blue-700 focus:outline-none cursor-pointer"
               type="submit"
               value="Add Service"
             />

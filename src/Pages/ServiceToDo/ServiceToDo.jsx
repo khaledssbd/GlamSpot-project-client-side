@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 import { Helmet } from 'react-helmet-async';
@@ -6,33 +5,64 @@ import { Typewriter } from 'react-simple-typewriter';
 import { Link } from 'react-router-dom';
 import eyeImg from '../../assets/eye.svg';
 import Swal from 'sweetalert2';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import Loading from '../../Components/AllLootie/Loading';
 
 const ServiceToDo = () => {
-  const [servicesToDo, setServicesToDo] = useState([]);
-  const [refetchNow, setRefetchNow] = useState(true);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const QueryClient = useQueryClient();
 
-  useEffect(() => {
-    axiosSecure.get(`/services-to-do?email=${user?.email}`).then(res => {
-      setServicesToDo(res.data);
-    });
-  }, [user?.email, axiosSecure, refetchNow]);
+  // fetch data on start like useEffect
+  const {
+    data: servicesToDo = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ['servicesToDo'],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/services-to-do?email=${user?.email}`
+      );
+      return data;
+    },
+  });
 
-  const refetch = () => {
-    setRefetchNow(!refetchNow);
-  };
-
-  const handleServiceStatusChange = async (newStatus, id) => {
-    const { data } = await axiosSecure.patch(
-      `/update-service-status/${id}?email=${user?.email}`,
-      { newStatus }
-    );
-    if (data.modifiedCount > 0) {
+  // update a service instance
+  const updateServiceToDo = useMutation({
+    mutationFn: async ({ newStatus, id }) => {
+      const { data } = await axiosSecure.patch(
+        `/update-service-status/${id}?email=${user?.email}`,
+        { newStatus }
+      );
+      return data;
+    },
+    onSuccess: () => {
       Swal.fire('Updated!', 'Your Service Status has been updated.', 'success');
       refetch();
-    }
+      QueryClient.invalidateQueries({ queryKey: ['servicesToDo'] });
+    },
+  });
+
+  const handleServiceStatusChange = async (newStatus, id) => {
+    await updateServiceToDo.mutateAsync({ newStatus, id });
+    // const { data } = await axiosSecure.patch(
+    //   `/update-service-status/${id}?email=${user?.email}`,
+    //   { newStatus }
+    // );
+    // if (data.modifiedCount > 0) {
+    //   Swal.fire('Updated!', 'Your Service Status has been updated.', 'success');
+    //   refetch();
+    // }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="my-10">
@@ -40,7 +70,7 @@ const ServiceToDo = () => {
         <title>GlamSpot | Service To Do</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}>
+      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}>
         <Typewriter
           words={['Services To Do']}
           loop={50}
@@ -93,7 +123,7 @@ const ServiceToDo = () => {
                   <td>
                     <select
                       name="serviceStatus"
-                      className="w-3/4 p-2 border rounded-lg focus:outline-green-500"
+                      className="p-2 border rounded-lg focus:outline-green-500"
                       type="text"
                       required
                       placeholder="Service Status"

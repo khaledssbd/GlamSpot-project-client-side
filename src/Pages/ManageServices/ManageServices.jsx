@@ -9,8 +9,8 @@ import deleteImg from '../../assets/delete.svg';
 import updateImg from '../../assets/update.svg';
 import eyeImg from '../../assets/eye.svg';
 import { Link } from 'react-router-dom';
-import Loading from '../../Components/AllLootie/Loading';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import Loading from '../../Components/AllLootie/Loading';
 
 const ManageServices = () => {
   const { user } = useAuth();
@@ -49,7 +49,7 @@ const ManageServices = () => {
     },
   });
 
-  const handleDeleteService = async id => {
+  const handleDeleteService = id => {
     Swal.fire({
       title: 'Confirm to delete?',
       text: "You won't be able to revert this!",
@@ -130,7 +130,7 @@ const ManageServices = () => {
         <title>GlamSpot | Manage Services</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}>
+      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}>
         <Typewriter
           words={['Services I provide']}
           loop={50}
@@ -305,7 +305,7 @@ const ManageServices = () => {
                   </div>
                 </div>
                 <input
-                  className="mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-gray-700 focus:outline-none cursor-pointer"
                   type="submit"
                   value="Update"
                 />

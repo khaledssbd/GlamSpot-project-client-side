@@ -9,16 +9,14 @@ import updateImg from '../../assets/update.svg';
 import eyeImg from '../../assets/eye.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-// import axios from 'axios';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import Loading from '../../Components/AllLootie/Loading';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import Loading from '../../Components/AllLootie/Loading';
 
 const BookedServices = () => {
   const { user } = useAuth();
-  // const [bookings, setBookings] = useState([]);
-  // const [fetchNow, setFetchNow] = useState(true);
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [bookingToUpdate, setBookingToUpdate] = useState({});
   const [serviceTakingDate, setServiceTakingDate] = useState(new Date());
@@ -38,15 +36,6 @@ const BookedServices = () => {
     },
   });
 
-  // useEffect(() => {
-  //   axiosSecure.get(`/bookings?email=${user?.email}`).then(res => {
-  //     setBookings(res.data);
-  //   });
-  // }, [user?.email, axiosSecure, fetchNow]);
-
-  // const refetch = () => {
-  //   setFetchNow(!fetchNow);
-  // };
 
   // delete a booking instance
   const deleteBooking = useMutation({
@@ -146,7 +135,7 @@ const BookedServices = () => {
         <title>GlamSpot | Booked Services</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}>
+      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}>
         <Typewriter
           words={['My Booked Services']}
           loop={50}
@@ -384,7 +373,7 @@ const BookedServices = () => {
                   </div>
                 </div>
                 <input
-                  className="mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-gray-700 focus:outline-none cursor-pointer"
                   type="submit"
                   value="Update"
                 />
