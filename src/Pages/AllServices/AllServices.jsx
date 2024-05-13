@@ -50,7 +50,6 @@ const AllServices = () => {
   };
   const handleReset = () => {
     setSort('');
-    //     setSearch('');
     setSearchText('');
     setCurrentPage(1);
     setShowSearchResult(false);
