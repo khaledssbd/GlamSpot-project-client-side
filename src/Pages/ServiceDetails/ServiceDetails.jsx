@@ -111,7 +111,7 @@ const ServiceDetails = () => {
           <div className="flex gap-2 mt-5"></div>
         </div>
 
-        <div className="animate__animated animate__backInUp min-w-80 ml-20 lg:ml-0">
+        <div className="animate__animated animate__backInUp min-w-80 ml-0 sm:ml-36 md:ml-0">
           <div className="lg:mt-28 ml-4 flex flex-col mb-6">
             <h3 className="text-base font-medium mb-2">Provider-</h3>
             <div className="flex justify-center items-center gap-4 mb-2 pb-2 border-t border-gray-300">
