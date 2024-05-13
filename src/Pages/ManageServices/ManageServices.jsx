@@ -2,34 +2,54 @@ import { Helmet } from 'react-helmet-async';
 import { Typewriter } from 'react-simple-typewriter';
 import Swal from 'sweetalert2';
 import useAuth from '../../hooks/useAuth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import axios from 'axios';
 import deleteImg from '../../assets/delete.svg';
 import updateImg from '../../assets/update.svg';
 import eyeImg from '../../assets/eye.svg';
 import { Link } from 'react-router-dom';
-
+import Loading from '../../Components/AllLootie/Loading';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const ManageServices = () => {
   const { user } = useAuth();
-  const [services, setServices] = useState([]);
-  const [fetchNow, setFetchNow] = useState(true);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [serviceToUpdate, setServiceToUpdate] = useState({});
   const axiosSecure = useAxiosSecure();
+  const QueryClient = useQueryClient();
 
-  useEffect(() => {
-    axiosSecure.get(`/my-services?email=${user?.email}`).then(res => {
-      setServices(res.data);
-    });
-  }, [user?.email, axiosSecure, fetchNow]);
+  // fetch data on start like useEffect
+  const {
+    data: services = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ['my-services'],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/my-services?email=${user?.email}`
+      );
+      return data;
+    },
+  });
 
-  const refetch = () => {
-    setFetchNow(!fetchNow);
-  };
+  // delete a service instance
+  const deleteService = useMutation({
+    mutationFn: async ({ id }) => {
+      const { data } = await axiosSecure.delete(
+        `/delete-service/${id}?email=${user?.email}`
+      );
+      return data;
+    },
+    onSuccess: () => {
+      Swal.fire('Deleted!', 'This service has been deleted.', 'success');
+      refetch();
+      // QueryClient.invalidateQueries({ queryKey: ['my-services'] });
+    },
+  });
 
-  const handleDelete = id => {
+  const handleDeleteService = async id => {
     Swal.fire({
       title: 'Confirm to delete?',
       text: "You won't be able to revert this!",
@@ -38,28 +58,14 @@ const ManageServices = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-    }).then(result => {
+    }).then(async result => {
       if (result.isConfirmed) {
-        axiosSecure
-          .delete(
-            `${import.meta.env.VITE_API_URL}/delete-service/${id}?email=${
-              user?.email
-            }`
-          )
-          .then(data => {
-            if (data.data.deletedCount > 0) {
-              Swal.fire(
-                'Deleted!',
-                'This service has been deleted.',
-                'success'
-              );
-              refetch();
-            }
-          });
+        await deleteService.mutateAsync({ id });
       }
     });
   };
 
+  // get data and show modal to update a service
   const getDataForUpdate = async id => {
     const { data } = await axios.get(
       `${import.meta.env.VITE_API_URL}/service-details/${id}`
@@ -67,6 +73,24 @@ const ManageServices = () => {
     setServiceToUpdate(data);
     setShowUpdateModal(true);
   };
+
+  // update a service instance
+  const updateService = useMutation({
+    mutationFn: async ({ updateData }) => {
+      const { data } = await axiosSecure.patch(
+        `/update-service/${serviceToUpdate._id}?email=${user?.email}`,
+        updateData
+      );
+      return data;
+    },
+    onSuccess: () => {
+      Swal.fire('Updated!', 'Your service has been updated.', 'success');
+      setShowUpdateModal(false);
+      setServiceToUpdate({});
+      // refetch();
+      QueryClient.invalidateQueries({ queryKey: ['my-services'] });
+    },
+  });
 
   const handleUpdateService = async e => {
     e.preventDefault();
@@ -84,25 +108,21 @@ const ManageServices = () => {
       serviceArea,
       serviceDescription,
     };
-
-    const { data } = await axiosSecure.patch(
-      `${import.meta.env.VITE_API_URL}/update-service/${
-        serviceToUpdate._id
-      }?email=${user?.email}`,
-      updateData
-    );
-    if (data.modifiedCount > 0) {
-      Swal.fire('Updated!', 'Your service has been updated.', 'success');
-      setShowUpdateModal(false);
-      setServiceToUpdate({});
-      refetch();
-    }
+    await updateService.mutateAsync({ updateData });
   };
 
   const cancelUpdating = () => {
     setShowUpdateModal(false);
     setServiceToUpdate({});
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="my-10 sm:px-6">
@@ -133,7 +153,7 @@ const ManageServices = () => {
                 <th className="text-sm text-black">Area</th>
                 <th className="text-sm text-black">Price</th>
                 <th className="text-sm text-black">Total Bookings</th>
-                <th className="text-sm text-black">View Service</th>
+                <th className="text-sm text-black">View Details</th>
                 <th className="text-sm text-black">Update</th>
                 <th className="text-sm text-black">Delete</th>
               </tr>
@@ -162,7 +182,7 @@ const ManageServices = () => {
                     </div>
                   </td>
                   <td>
-                    <div onClick={() => handleDelete(service._id)}>
+                    <div onClick={() => handleDeleteService(service._id)}>
                       <img
                         src={deleteImg}
                         alt="delete-booking"
@@ -181,7 +201,7 @@ const ManageServices = () => {
       {showUpdateModal && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
           <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-300 text-center">
-            <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold">
+            <h3 className="mt-3 mb-2 md:mt-8 text-base md:text-xl font-bold">
               Update the service ({serviceToUpdate.serviceName})
             </h3>
             <div className="md:mt-8 mx-auto w-full md:w-2/3">
@@ -193,7 +213,7 @@ const ManageServices = () => {
                       Service Name
                     </label>
                     <input
-                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
+                      className="md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.serviceName}
@@ -204,16 +224,18 @@ const ManageServices = () => {
                       Service Image (1440px × 960px suits best)
                     </label>
                     <input
-                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
+                      className="md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.serviceImage}
                       name="serviceImage"
                     />
 
-                    <label className="block mt-4 mb-1 text-sm">Service Area</label>
+                    <label className="block mt-4 mb-1 text-sm">
+                      Service Area
+                    </label>
                     <input
-                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
+                      className="md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.serviceArea}
@@ -224,7 +246,7 @@ const ManageServices = () => {
                       Service Description
                     </label>
                     <textarea
-                      className="w-2/3 p-2 border rounded-lg focus:outline-green-500 text-sm"
+                      className="w-3/4 md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
                       name="serviceDescription"
                       required
                       placeholder="Enter your instruction"
@@ -235,9 +257,11 @@ const ManageServices = () => {
                   </div>
                   {/* Right side */}
                   <div className="flex-1">
-                    <label className="block mt-3 mb-1 text-sm">Service Price</label>
+                    <label className="block mt-3 mb-1 text-sm">
+                      Service Price
+                    </label>
                     <input
-                      className="p-2 border rounded-lg focus:outline-green-500 text-sm"
+                      className="md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.servicePrice}
@@ -245,10 +269,10 @@ const ManageServices = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-red-500 text-sm">
-                      Your Name {'(unchangeable)'}
+                      Your Name {'(fixed)'}
                     </label>
                     <input
-                      className="p-2 border rounded-lg focus:outline-red-500 text-sm"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.providerName}
@@ -257,10 +281,10 @@ const ManageServices = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-red-500 text-sm">
-                      Your Email {'(unchangeable)'}
+                      Your Email {'(fixed)'}
                     </label>
                     <input
-                      className="p-2 border rounded-lg focus:outline-red-500 text-sm"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="email"
                       required
                       defaultValue={serviceToUpdate.providerEmail}
@@ -268,10 +292,10 @@ const ManageServices = () => {
                       readOnly
                     />
                     <label className="block mt-3 mb-1 text-red-500 text-sm">
-                      Your Image {'(unchangeable)'}
+                      Your Image {'(fixed)'}
                     </label>
                     <input
-                      className="p-2 border rounded-lg focus:outline-red-500 text-sm"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={serviceToUpdate.providerImage}
@@ -281,12 +305,12 @@ const ManageServices = () => {
                   </div>
                 </div>
                 <input
-                  className="mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                   type="submit"
                   value="Update"
                 />
                 <button
-                  className="ml-10 mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="ml-10 mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                   onClick={cancelUpdating}
                 >
                   Not Now

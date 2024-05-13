@@ -8,7 +8,7 @@ const Slide = ({ image, text }) => {
         backgroundImage: `url(${image})`,
       }}
     >
-      <div className="flex items-center justify-center w-full h-full bg-gray-900/50">
+      <div className="flex items-center justify-center w-full h-full bg-gray-900/20">
         <div className="text-center">
           <h1 className="text-3xl font-semibold text-white lg:text-4xl">
             {text}

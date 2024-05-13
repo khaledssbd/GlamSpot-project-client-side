@@ -55,7 +55,7 @@ const UpdateProfile = () => {
         </div>
         <div className="form-control">
           <label className="label label-text text-red-500 text-base font-semibold mt-5">
-            Email {'(unchangeable)'}
+            Email {'(fixed)'}
           </label>
           <input
             type="email"

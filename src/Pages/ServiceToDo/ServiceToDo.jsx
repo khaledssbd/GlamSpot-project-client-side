@@ -63,7 +63,7 @@ const ServiceToDo = () => {
                 <th className="text-sm text-black">Customer Name</th>
                 <th className="text-sm text-black">Customer Email</th>
                 <th className="text-sm text-black">Service Taking Date</th>
-                <th className="text-sm text-black">View Service</th>
+                <th className="text-sm text-black">View Details</th>
                 <th className="text-sm text-black">Status</th>
               </tr>
             </thead>

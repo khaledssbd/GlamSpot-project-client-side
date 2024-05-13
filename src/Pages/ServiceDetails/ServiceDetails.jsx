@@ -150,10 +150,10 @@ const ServiceDetails = () => {
                   {/* Left side */}
                   <div className="flex-1">
                     <label className="block mt-4 mb-1 text-sm text-red-500">
-                      Service Name {'(unchangeable)'}
+                      Service Name {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={serviceName}
@@ -162,10 +162,10 @@ const ServiceDetails = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-sm text-red-500">
-                      Service Image (1440px × 960px suits best)
+                      Service Image (1440px × 960px suits best) {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={serviceImage}
@@ -174,10 +174,10 @@ const ServiceDetails = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-sm text-red-500">
-                      Service ID {'(unchangeable)'}
+                      Service ID {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={_id}
@@ -186,10 +186,10 @@ const ServiceDetails = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-sm text-red-500">
-                      Provider Email {'(unchangeable)'}
+                      Provider Email {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="email"
                       required
                       defaultValue={providerEmail}
@@ -198,10 +198,10 @@ const ServiceDetails = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-sm text-red-500">
-                      Provider Name {'(unchangeable)'}
+                      Provider Name {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={providerName}
@@ -212,10 +212,10 @@ const ServiceDetails = () => {
                   {/* Right side */}
                   <div className="flex-1">
                     <label className="block mt-4 mb-1 text-sm text-red-500">
-                      Price in $ {'(unchangeable)'}
+                      Price in $ {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       defaultValue={servicePrice}
@@ -224,10 +224,10 @@ const ServiceDetails = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-sm text-red-500">
-                      Your name {'(unchangeable)'}
+                      Your name {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="text"
                       required
                       name="user_email"
@@ -237,10 +237,10 @@ const ServiceDetails = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-sm text-red-500">
-                      Your Email {'(unchangeable)'}
+                      Your Email {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg text-sm focus:outline-red-500"
                       type="email"
                       required
                       name="user_email"
@@ -253,7 +253,7 @@ const ServiceDetails = () => {
                       Your instruction
                     </label>
                     <textarea
-                      className="w-full p-2 border rounded-lg text-sm focus:outline-green-500"
+                      className="w-3/4 md:w-full p-2 border rounded-lg text-sm focus:outline-green-500"
                       name="instruction"
                       required
                       placeholder="Enter your instruction"

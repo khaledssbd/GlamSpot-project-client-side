@@ -112,7 +112,7 @@ const AddService = () => {
                 />
 
                 <label className="block mt-5 mb-1 text-red-500">
-                  Your name {'(unchangeable)'}
+                  Your name {'(fixed)'}
                 </label>
                 <input
                   className="w-full p-2 border rounded-lg focus:outline-red-500"
@@ -125,7 +125,7 @@ const AddService = () => {
                 />
 
                 <label className="block mt-5 mb-1 text-red-500">
-                  Your Image {'(unchangeable)'}
+                  Your Image {'(fixed)'}
                 </label>
                 <input
                   className="w-full p-2 border rounded-lg focus:outline-red-500"
@@ -138,7 +138,7 @@ const AddService = () => {
                 />
 
                 <label className="block mt-5 mb-1 text-red-500">
-                  Your Email {'(unchangeable)'}
+                  Your Email {'(fixed)'}
                 </label>
                 <input
                   className="w-full p-2 border rounded-lg focus:outline-red-500"

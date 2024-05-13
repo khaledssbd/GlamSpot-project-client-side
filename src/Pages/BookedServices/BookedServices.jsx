@@ -136,7 +136,7 @@ const BookedServices = () => {
                 <th className="text-sm text-black">Provider Name</th>
                 <th className="text-sm text-black">Service Taking Date</th>
                 <th className="text-sm text-black">Status</th>
-                <th className="text-sm text-black">View Service</th>
+                <th className="text-sm text-black">View Details</th>
                 <th className="text-sm text-black">Update</th>
                 <th className="text-sm text-black">Delete</th>
               </tr>
@@ -216,19 +216,19 @@ const BookedServices = () => {
       {showUpdateModal && (
         <div className="fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
           <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-200 text-center">
-            <h3 className="mt-8 text-xl font-bold">
+            <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold">
               Update the booking ({bookingToUpdate.serviceName})
             </h3>
-            <div className="mt-8 mx-auto w-full md:w-2/3">
+            <div className="md:mt-8 mx-auto w-full md:w-2/3">
               <form onSubmit={handleUpdateBooking}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-8">
                   {/* Left side */}
                   <div className="flex-1">
-                    <label className="block mt-4 mb-1 text-red-500">
-                      Service Name {'(unchangeable)'}
+                    <label className="block mt-4 mb-1 text-red-500 text-sm">
+                      Service Name {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={bookingToUpdate.serviceName}
@@ -236,11 +236,11 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
                       Service Image (1440px × 960px suits best)
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={bookingToUpdate.serviceImage}
@@ -248,11 +248,11 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
-                      Service ID {'(unchangeable)'}
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
+                      Service ID {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={bookingToUpdate._id}
@@ -260,11 +260,11 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
-                      Provider Name {'(unchangeable)'}
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
+                      Provider Name {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={bookingToUpdate.providerName}
@@ -272,11 +272,11 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
-                      Provider Email {'(unchangeable)'}
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
+                      Provider Email {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="email"
                       required
                       defaultValue={bookingToUpdate.providerEmail}
@@ -286,11 +286,11 @@ const BookedServices = () => {
                   </div>
                   {/* Right side */}
                   <div className="flex-1">
-                    <label className="block mt-4 mb-1 text-red-500">
-                      Price in $ {'(unchangeable)'}
+                    <label className="block mt-4 mb-1 text-red-500 text-sm">
+                      Price in $ {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       defaultValue={bookingToUpdate.servicePrice}
@@ -298,11 +298,11 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
-                      Your name {'(unchangeable)'}
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
+                      Your name {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="text"
                       required
                       name="user_email"
@@ -311,11 +311,11 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-red-500">
-                      Your Email {'(unchangeable)'}
+                    <label className="block mt-3 mb-1 text-red-500 text-sm">
+                      Your Email {'(fixed)'}
                     </label>
                     <input
-                      className="w-full p-2 border rounded-lg focus:outline-red-500"
+                      className="md:w-full p-2 border rounded-lg focus:outline-red-500 text-sm"
                       type="email"
                       required
                       name="user_email"
@@ -324,9 +324,11 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1">Your instruction</label>
+                    <label className="block mt-3 mb-1 text-sm">
+                      Your instruction
+                    </label>
                     <textarea
-                      className="w-full p-2 border rounded-lg focus:outline-green-500"
+                      className="w-3/4 md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
                       name="instruction"
                       required
                       placeholder="Enter your instruction"
@@ -335,9 +337,11 @@ const BookedServices = () => {
                       rows="2"
                     />
 
-                    <label className="block mt-1">Service taking date</label>
+                    <label className="block mt-1 text-sm">
+                      Service taking date
+                    </label>
                     <DatePicker
-                      className="w-full p-2 border rounded-lg"
+                      className="md:w-full p-2 border rounded-lg text-sm"
                       selected={serviceTakingDate}
                       onChange={date => setServiceTakingDate(date)}
                       dateFormat="dd/MM/yyyy"
@@ -345,12 +349,12 @@ const BookedServices = () => {
                   </div>
                 </div>
                 <input
-                  className="mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                   type="submit"
                   value="Update"
                 />
                 <button
-                  className="ml-10 mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                  className="ml-10 mt-2 md:mt-10 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                   onClick={cancelUpdating}
                 >
                   Not Now
