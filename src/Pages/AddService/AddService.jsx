@@ -5,6 +5,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 
 import useAuth from '../../hooks/useAuth';
+import { Typewriter } from 'react-simple-typewriter';
 
 const AddService = () => {
   const { user } = useAuth();
@@ -41,8 +42,8 @@ const AddService = () => {
       .post(`/add-service?email=${user?.email}`, serviceDoc)
       .then(res => {
         if (res.data.insertedId) {
-               toast.success('Service added successfully');
-               navigate('/manage-services');
+          toast.success('Service added successfully');
+          navigate('/manage-services');
         }
       })
       .catch(err => {
@@ -55,7 +56,20 @@ const AddService = () => {
         <title>GlamSpot | Add Service</title>
       </Helmet>
       <div className="text-center">
-        <h3 className="text-2xl font-bold">Add your service</h3>
+        {/* <h3 className="text-2xl font-bold">Add your service</h3> */}
+        <span
+          style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}
+        >
+          <Typewriter
+            words={['Add your service']}
+            loop={50}
+            cursor
+            cursorStyle="_"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1500}
+          />
+        </span>
         <div className="mt-8 mx-auto w-full md:w-2/3">
           <form onSubmit={handleBooking}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -11,13 +11,14 @@
 
 - Creative Design
 - All Device Responsive
+- Loading data in a amazing way with no bug using TanStack Query
 - CRUD or REST(Representational State Transfer) API(Application Programming
   Interface) support with post get put delete requests
 - Custom API and Server configuration with database
 - tailwind CSS
 - Awesome dark theme support
 - Toast Message and sweet-alert2
-- aos, swiper and animate.css Implementation
+- Framer-motion, aos, swiper and animate.css Implementation
 - Environment Variable configuration
 - Regex with Valid email
 - Regex with Uppercase letters, lowercase letters and 6 characters in password
@@ -29,10 +30,11 @@
 # Selected category name- Assignment_category_0002 (Beauty and Grooming Services)
 
 # npm Challenge Packages
-
+- npm i framer-motion
 - npm i lottie-react (in error page and loading. e.g.
   [here](https://glamspot-khaled.web.app/fdfgfdvgdfg))
-- npm i react-simple-typewriter (in hero section and title, 'Booked Services' page title)
+- npm i react-simple-typewriter (in hero section and title, 'Booked Services'
+  page title)
 - npm install react-tooltip (in userImage which will be showed after login)
 
 # npm other Packages
@@ -45,3 +47,4 @@
 - npm i framer-motion
 - npm i react-hot-toast
 - npm install -g firebase-tools
+- npm i @tanstack/react-query

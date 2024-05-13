@@ -130,7 +130,7 @@ const ManageServices = () => {
         <title>GlamSpot | Manage Services</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '20px' }}>
+      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}>
         <Typewriter
           words={['Services I provide']}
           loop={50}
@@ -262,7 +262,7 @@ const ManageServices = () => {
                     </label>
                     <input
                       className="md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
-                      type="text"
+                      type="number"
                       required
                       defaultValue={serviceToUpdate.servicePrice}
                       name="servicePrice"

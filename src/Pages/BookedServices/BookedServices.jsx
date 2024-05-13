@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { Helmet } from 'react-helmet-async';
@@ -9,28 +9,60 @@ import updateImg from '../../assets/update.svg';
 import eyeImg from '../../assets/eye.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
+// import axios from 'axios';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import Loading from '../../Components/AllLootie/Loading';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const BookedServices = () => {
   const { user } = useAuth();
-  const [bookings, setBookings] = useState([]);
-  const [fetchNow, setFetchNow] = useState(true);
+  // const [bookings, setBookings] = useState([]);
+  // const [fetchNow, setFetchNow] = useState(true);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [bookingToUpdate, setBookingToUpdate] = useState({});
   const [serviceTakingDate, setServiceTakingDate] = useState(new Date());
   const axiosSecure = useAxiosSecure();
+  const QueryClient = useQueryClient();
 
-  useEffect(() => {
-    axiosSecure.get(`/bookings?email=${user?.email}`).then(res => {
-      setBookings(res.data);
-    });
-  }, [user?.email, axiosSecure, fetchNow]);
+  // fetch data on start like useEffect
+  const {
+    data: bookings = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ['my-bookings'],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/bookings?email=${user?.email}`);
+      return data;
+    },
+  });
 
-  const refetch = () => {
-    setFetchNow(!fetchNow);
-  };
+  // useEffect(() => {
+  //   axiosSecure.get(`/bookings?email=${user?.email}`).then(res => {
+  //     setBookings(res.data);
+  //   });
+  // }, [user?.email, axiosSecure, fetchNow]);
+
+  // const refetch = () => {
+  //   setFetchNow(!fetchNow);
+  // };
+
+  // delete a booking instance
+  const deleteBooking = useMutation({
+    mutationFn: async ({ id }) => {
+      const { data } = await axiosSecure.delete(
+        `/delete-booking/${id}?email=${user?.email}`
+      );
+      return data;
+    },
+    onSuccess: () => {
+      Swal.fire('Deleted!', 'Your Booking has been deleted.', 'success');
+      refetch();
+      // QueryClient.invalidateQueries({ queryKey: ['my-bookings'] });
+    },
+  });
+
   const handleDelete = (id, serviceStatus) => {
     if (serviceStatus === 'Completed') {
       return toast.error(
@@ -46,28 +78,14 @@ const BookedServices = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-    }).then(result => {
+    }).then(async result => {
       if (result.isConfirmed) {
-        axiosSecure
-          .delete(
-            `${import.meta.env.VITE_API_URL}/delete-booking/${id}?email=${
-              user?.email
-            }`
-          )
-          .then(data => {
-            if (data.data.deletedCount > 0) {
-              Swal.fire(
-                'Deleted!',
-                'Your Booking has been deleted.',
-                'success'
-              );
-              refetch();
-            }
-          });
+        await deleteBooking.mutateAsync({ id });
       }
     });
   };
 
+  // get data and show modal to update a booking
   const getDataForUpdate = async (id, serviceStatus) => {
     if (serviceStatus === 'Completed') {
       return toast.error(
@@ -75,43 +93,60 @@ const BookedServices = () => {
         { duration: 3000 }
       );
     }
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/booking-details/${id}`
+    const { data } = await axiosSecure.get(
+      `/booking-details/${id}?email=${user?.email}`
     );
     setBookingToUpdate(data);
     setServiceTakingDate(data.serviceTakingDate);
     setShowUpdateModal(true);
   };
 
+  // update a service instance
+  const updateBooking = useMutation({
+    mutationFn: async ({ updateData }) => {
+      const { data } = await axiosSecure.patch(
+        `/update-booking/${bookingToUpdate._id}?email=${user?.email}`,
+        updateData
+      );
+      return data;
+    },
+    onSuccess: () => {
+      setShowUpdateModal(false);
+      Swal.fire('Updated!', 'Your Booking has been updated.', 'success');
+      // refetch();
+      setBookingToUpdate({});
+      QueryClient.invalidateQueries({ queryKey: ['my-services'] });
+    },
+  });
+
   const handleUpdateBooking = async e => {
     e.preventDefault();
     const form = e.target;
     const instruction = form.instruction.value;
     const updateData = { instruction, serviceTakingDate };
-
-    const { data } = await axios.patch(
-      `${import.meta.env.VITE_API_URL}/update-booking/${bookingToUpdate._id}`,
-      updateData
-    );
-    if (data.modifiedCount > 0) {
-      Swal.fire('Updated!', 'Your Booking has been updated.', 'success');
-      setShowUpdateModal(false);
-      setBookingToUpdate({});
-      refetch();
-    }
+    await updateBooking.mutateAsync({ updateData });
   };
 
   const cancelUpdating = () => {
     setShowUpdateModal(false);
     setBookingToUpdate({});
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className="my-10 sm:px-6">
       <Helmet>
         <title>GlamSpot | Booked Services</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '20px' }}>
+      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}>
         <Typewriter
           words={['My Booked Services']}
           loop={50}

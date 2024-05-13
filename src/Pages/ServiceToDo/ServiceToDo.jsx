@@ -40,7 +40,7 @@ const ServiceToDo = () => {
         <title>GlamSpot | Service To Do</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '20px' }}>
+      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '30px' }}>
         <Typewriter
           words={['Services To Do']}
           loop={50}
