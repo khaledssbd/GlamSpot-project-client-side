@@ -130,70 +130,65 @@ const ManageServices = () => {
         <title>GlamSpot | Manage Services</title>
       </Helmet>
 
-      <span style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}>
-        <Typewriter
-          words={['Services I provide']}
-          loop={50}
-          cursor
-          cursorStyle="_"
-          typeSpeed={70}
-          deleteSpeed={50}
-          delaySpeed={1500}
-        />
-      </span>
-
+      <h3 className="flex justify-center items-center my-10 text-center text-[#fa237d] text-2xl font-bold">
+        {services.length}
+        <span
+          style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}
+        >
+          <Typewriter
+            words={['- Services I provide']}
+            loop={50}
+            cursor
+            cursorStyle="_"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1500}
+          />
+        </span>
+      </h3>
       {services.length > 0 ? (
-        <div className="overflow-x-auto rounded-2xl border border-black mt-8">
-          <table className="table table-zebra">
-            {/* head starts here */}
-            <thead className="bg-green-400">
-              <tr>
-                <th className="text-sm text-black">Sl</th>
-                <th className="text-sm text-black">Service Name</th>
-                <th className="text-sm text-black">Area</th>
-                <th className="text-sm text-black">Price</th>
-                <th className="text-sm text-black">Total Bookings</th>
-                <th className="text-sm text-black">View Details</th>
-                <th className="text-sm text-black">Update</th>
-                <th className="text-sm text-black">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row starts here */}
-              {services?.map((service, i) => (
-                <tr key={service._id}>
-                  <th>{i + 1}.</th>
-                  <td>{service.serviceName}</td>
-                  <td>{service.serviceArea}</td>
-                  <td>$ {service.servicePrice}</td>
-                  <td>{service.totalBookings}</td>
-                  <td>
-                    <Link to={`/service/${service._id}`}>
-                      <img src={eyeImg} alt="view-booking" className="w-6" />
-                    </Link>
-                  </td>
-                  <td>
-                    <div onClick={() => getDataForUpdate(service._id)}>
-                      <img
-                        src={updateImg}
-                        alt="update-booking"
-                        className="w-6"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div onClick={() => handleDeleteService(service._id)}>
-                      <img
-                        src={deleteImg}
-                        alt="delete-booking"
-                        className="w-6"
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {services?.map((service, i) => (
+            <div
+              key={i}
+              className="p-3 bg-gray-300 rounded-xl flex flex-col"
+              data-aos="zoom-out-up"
+            >
+              <div className="flex justify-center items-center">
+                <img
+                  className="rounded-lg border border-black"
+                  src={service.serviceImage}
+                  alt={service.serviceName}
+                />
+              </div>
+              <h3 className="flex-grow font-medium text-base md:text-lg lg:text-xl my-3 text-black">
+                {service.serviceName}
+              </h3>
+              <h3 className="flex gap-3 mx-5 mb-3  text-base text-black font-normal">
+                Area: {service.serviceArea}
+              </h3>
+              <h3 className="flex gap-3 mx-5 mb-3 text-base text-black font-normal">
+                Price: ${service.servicePrice}
+              </h3>
+              <h3 className="flex gap-3 mx-5 mb-3 text-base text-black font-normal">
+                Total Bookings: {service.totalBookings}
+              </h3>
+
+              <div className="flex justify-around items-center border rounded-md border-gray-500 p-2">
+                <Link to={`/service/${service._id}`}>
+                  <img src={eyeImg} alt="view-booking" className="w-6" />
+                </Link>
+
+                <div onClick={() => getDataForUpdate(service._id)}>
+                  <img src={updateImg} alt="update-booking" className="w-6" />
+                </div>
+
+                <div onClick={() => handleDeleteService(service._id)}>
+                  <img src={deleteImg} alt="delete-booking" className="w-6" />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <h3 className="mt-20 text-xl font-bold">No service yet</h3>
