@@ -213,17 +213,17 @@ const Navbar = () => {
         </div>
         <Link
           to="/"
-          className="btn -ml-6 sm:-ml-0 btn-ghost hover:bg-black hover:text-black text-lg sm:text-xl md:text-3xl font-bold"
+          className="btn -ml-6 sm:-ml-0 btn-ghost hover:bg-black hover:text-black text-2xl sm:text-3xl font-bold"
         >
           <button className="flex justify-center items-center gap-1">
             <img
-              className="w-5 md:w-10 rounded-lg"
+              className="w-8 sm:w-10 rounded-lg"
               src="/favicon.png"
               alt="GlamSpot"
             />
             <span className="bg-gradient-to-r from-primary to-red-500 text-transparent bg-clip-text">
               GlamSpot
-            </span>{' '}
+            </span>
           </button>
         </Link>
       </div>
@@ -316,7 +316,7 @@ const Navbar = () => {
 
             <button
               onClick={handleLogOut}
-              className="btn btn-outline bg-red-500 hover:bg-red-900 text-white px-2"
+              className="hidden sm:flex btn btn-outline bg-red-500 hover:bg-red-900 text-white px-2"
             >
               Log Out
             </button>
