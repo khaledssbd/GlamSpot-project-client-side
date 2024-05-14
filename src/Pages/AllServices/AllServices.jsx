@@ -14,7 +14,7 @@ const AllServices = () => {
   const [services, setServices] = useState([]);
   const [searchedServices, setSearchedServices] = useState([]);
   const [showSearchResult, setShowSearchResult] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios.get(
@@ -62,12 +62,14 @@ const AllServices = () => {
       setSearchedServices([]);
       return;
     }
+    setIsLoading(true);
     setSearchText(text);
     setShowSearchResult(true);
     const { data } = await axios.get(
       `${import.meta.env.VITE_API_URL}/search-services?search=${text}`
     );
     setSearchedServices(data);
+    setIsLoading(false);
   };
 
   return (
@@ -117,49 +119,55 @@ const AllServices = () => {
             <div>
               <h3 className="my-10 text-2xl font-bold">Search Result</h3>
               <div>
-                {searchedServices.length === 0 ? (
-                  <div className="h-20">
-                    <h3 className="text-red-500 text-2xl font-bold">
-                      No result matched
-                    </h3>
-                  </div>
+                {isLoading ? (
+                  <span className="loading loading-dots loading-lg"></span>
                 ) : (
-                  <div className="border-2 border-gray-200 rounded-xl my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {searchedServices?.map(service => (
-                      <div
-                        key={service._id}
-                        className="hover:scale-[1.05] transition-all flex flex-col gap-3 border border-gray-400 rounded-lg m-3 p-3 bg-white min-h-0.5"
-                      >
-                        <div className="flex justify-center items-center">
-                          <img
-                            className="rounded-lg border-2 border-gray-300 w-56"
-                            src={service.serviceImage}
-                            alt={service.serviceName}
-                          />
-                        </div>
-                        <h1 className="font-semibold text-gray-800 text-center">
-                          {service.serviceName}
-                        </h1>
-                        <div className="flex items-center justify-around">
-                          <div className="text-left">
-                            <p className="mt-2 text-sm text-gray-600 ">
-                              By: {service.providerName}
-                            </p>
-                            <p className="mt-2 text-sm text-gray-600 ">
-                              Area: {service.serviceArea}
-                            </p>
-                            <p className="mt-2 text-sm text-gray-600 ">
-                              Price: ${service.servicePrice}
-                            </p>
-                          </div>
-                        </div>
-                        <Link to={`/service/${service._id}`}>
-                          <button className="text-white hover:bg-red-700 bg-green-500 rounded-lg p-2">
-                            Details
-                          </button>
-                        </Link>
+                  <div>
+                    {searchedServices.length === 0 ? (
+                      <div className="h-20">
+                        <h3 className="text-red-500 text-2xl font-bold">
+                          No result matched
+                        </h3>
                       </div>
-                    ))}
+                    ) : (
+                      <div className="border-2 border-gray-200 rounded-xl my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        {searchedServices?.map(service => (
+                          <div
+                            key={service._id}
+                            className="hover:scale-[1.05] transition-all flex flex-col gap-3 border border-gray-400 rounded-lg m-3 p-3 bg-white min-h-0.5"
+                          >
+                            <div className="flex justify-center items-center">
+                              <img
+                                className="rounded-lg border-2 border-gray-300 w-56"
+                                src={service.serviceImage}
+                                alt={service.serviceName}
+                              />
+                            </div>
+                            <h1 className="font-semibold text-gray-800 text-center">
+                              {service.serviceName}
+                            </h1>
+                            <div className="flex items-center justify-around">
+                              <div className="text-left">
+                                <p className="mt-2 text-sm text-gray-600 ">
+                                  By: {service.providerName}
+                                </p>
+                                <p className="mt-2 text-sm text-gray-600 ">
+                                  Area: {service.serviceArea}
+                                </p>
+                                <p className="mt-2 text-sm text-gray-600 ">
+                                  Price: ${service.servicePrice}
+                                </p>
+                              </div>
+                            </div>
+                            <Link to={`/service/${service._id}`}>
+                              <button className="text-white hover:bg-red-700 bg-green-500 rounded-lg p-2">
+                                Details
+                              </button>
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
