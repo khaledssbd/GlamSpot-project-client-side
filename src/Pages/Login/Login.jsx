@@ -73,7 +73,7 @@ const Login = () => {
         <title>GlamSpot | Login</title>
       </Helmet>
       <h2 className="my-10 text-xl sm:text-2xl md:text-3xl font-medium text-center text-white">
-        Please Login
+        Login
       </h2>
       <form onSubmit={handleLogin} className=" md:w-3/4 lg:w-1/2 mx-auto">
         <div className="form-control">

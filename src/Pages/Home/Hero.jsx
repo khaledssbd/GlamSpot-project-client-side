@@ -23,7 +23,7 @@ const Hero = () => {
         data-aos="zoom-in-up"
       />
       <h3
-        className="text-xl md:text-4xl font-black my-5 bg-gradient-to-r from-primary via-blue-600 to-secondary bg-300% text-transparent bg-clip-text animate-gradient"
+        className="text-3xl md:text-4xl font-black my-5 bg-gradient-to-r from-primary via-blue-600 to-secondary bg-300% text-transparent bg-clip-text animate-gradient"
         data-aos="fade-up-right"
       >
         GlamSpot

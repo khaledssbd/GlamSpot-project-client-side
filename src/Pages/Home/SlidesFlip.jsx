@@ -27,7 +27,7 @@ const SlidesFlip = () => {
           onClick={handleflip}
         >
           <motion.div
-            className="flip-card-inner w-[100%] h-[100%]"
+            className="flip-card-inner w-[100%] h-[40%] md:h-[100%]"
             initial={false}
             animate={{ rotateY: isFlipped ? 180 : 360 }}
             transition={{ duration: 0.6, animationDirection: 'normal' }}
