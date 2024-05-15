@@ -13,7 +13,7 @@ const SlidesFlip = () => {
     setIsAnimating(!isAnimating);
   };
   return (
-    <div className="mt-24 mb-16">
+    <div className="my-10">
       <h4
         className="font-play text-xl md:text-3xl font-medium mb-4"
         data-aos="zoom-out-down"
@@ -27,17 +27,17 @@ const SlidesFlip = () => {
           onClick={handleflip}
         >
           <motion.div
-            className="flip-card-inner w-[100%] h-[40%] md:h-[100%]"
+            className="flip-card-inner w-[100%] h-[100%]"
             initial={false}
             animate={{ rotateY: isFlipped ? 180 : 360 }}
             transition={{ duration: 0.6, animationDirection: 'normal' }}
           >
             <div
-              className="flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4"
+              className="flip-card-front w-[100%] h-[100%] bg-center border-[1px] text-white rounded-lg p-4"
               style={{ backgroundImage: `url(${Image_1})` }}
             ></div>
             <div
-              className="flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4"
+              className="flip-card-back w-[100%] h-[100%] bg-center border-[1px] text-white rounded-lg p-4"
               style={{ backgroundImage: `url(${Image_2})` }}
             ></div>
           </motion.div>
