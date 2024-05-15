@@ -11,6 +11,7 @@ import eyeImg from '../../assets/eye.svg';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Loading from '../../Components/AllLootie/Loading';
+import xButtonSVG from '../../assets/x-button.svg';
 
 const ManageServices = () => {
   const { user } = useAuth();
@@ -195,8 +196,16 @@ const ManageServices = () => {
       )}
       {showUpdateModal && (
         <div className=" fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
-          <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-300 text-center">
-            <h3 className="mt-3 mb-2 md:mt-8 text-base md:text-xl font-bold">
+          <div className="w-full md:w-2/3 h-5/6 rounded-xl bg-blue-300 text-center">
+            <div className="card-actions justify-end">
+              <button
+                onClick={cancelUpdating}
+                className="btn btn-square btn-sm"
+              >
+                <img src={xButtonSVG} alt="close" />
+              </button>
+            </div>
+            <h3 className="mt-3 mb-2 md:mt-8 text-base md:text-xl font-bold text-black">
               Update the service ({serviceToUpdate.serviceName})
             </h3>
             <div className="md:mt-8 mx-auto w-full md:w-2/3">
@@ -204,7 +213,7 @@ const ManageServices = () => {
                 <div className="grid grid-cols-2 gap-8">
                   {/* Left side */}
                   <div className="flex-1">
-                    <label className="block mt-4 mb-1 text-sm">
+                    <label className="block mt-4 mb-1 text-sm text-black">
                       Service Name
                     </label>
                     <input
@@ -215,7 +224,7 @@ const ManageServices = () => {
                       name="serviceName"
                     />
 
-                    <label className="block mt-3 mb-1 text-sm">
+                    <label className="block mt-3 mb-1 text-sm text-black">
                       Service Image (1440px × 960px suits best)
                     </label>
                     <input
@@ -226,7 +235,7 @@ const ManageServices = () => {
                       name="serviceImage"
                     />
 
-                    <label className="block mt-4 mb-1 text-sm">
+                    <label className="block mt-4 mb-1 text-sm text-black">
                       Service Area
                     </label>
                     <input
@@ -237,7 +246,7 @@ const ManageServices = () => {
                       name="serviceArea"
                     />
 
-                    <label className="block mt-3 mb-1 text-sm">
+                    <label className="block mt-3 mb-1 text-sm text-black">
                       Service Description
                     </label>
                     <textarea
@@ -252,7 +261,7 @@ const ManageServices = () => {
                   </div>
                   {/* Right side */}
                   <div className="flex-1">
-                    <label className="block mt-3 mb-1 text-sm">
+                    <label className="block mt-3 mb-1 text-sm text-black">
                       Service Price
                     </label>
                     <input

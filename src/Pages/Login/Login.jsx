@@ -50,11 +50,11 @@ const Login = () => {
   const handlePasswordReset = e => {
     e.preventDefault();
     const email = e.target.emailForPassReset.value;
-    getPassWordResetMail(email).then(() => {
-      setPassWordResetMailSentConfirmation(true);
-    });
-
-    // setShowForgotPassModal(false);
+    getPassWordResetMail(email)
+      .then(() => {
+        setPassWordResetMailSentConfirmation(true);
+      })
+      .catch(error => toast.error(error.message));
   };
 
   return (

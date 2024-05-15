@@ -7,6 +7,7 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import xButtonSVG from '../../assets/x-button.svg';
 
 const ServiceDetails = () => {
   const service = useLoaderData();
@@ -140,8 +141,13 @@ const ServiceDetails = () => {
       </div>
       {showBookingForm && (
         <div className="fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
-          <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-200 text-center">
-            <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold">
+          <div className="w-full md:w-2/3 h-5/6 rounded-xl bg-blue-200 text-center">
+            <div className="card-actions justify-end">
+              <button onClick={cancelBooking} className="btn btn-square btn-sm">
+                <img src={xButtonSVG} alt="close" />
+              </button>
+            </div>
+            <h3 className="mt-2 md:mt-8 text-base text-black md:text-xl font-bold">
               Book the service ({serviceName})
             </h3>
             <div className="md:mt-8 mx-auto w-full md:w-2/3">
@@ -249,7 +255,7 @@ const ServiceDetails = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-sm">
+                    <label className="block mt-3 mb-1 text-sm text-black">
                       Your instruction
                     </label>
                     <textarea
@@ -261,7 +267,7 @@ const ServiceDetails = () => {
                       rows="2"
                     />
 
-                    <label className="block mt-1 text-sm">
+                    <label className="block mt-1 text-sm text-black">
                       Service taking date
                     </label>
                     <DatePicker

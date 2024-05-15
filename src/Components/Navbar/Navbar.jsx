@@ -1,13 +1,10 @@
 import { Link, NavLink } from 'react-router-dom';
 import userImg from '../../assets/user.png';
 import { useEffect, useState } from 'react';
-
 import toast from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
-// import SUN from '../../assets/sun.svg';
-// import DARK from '../../assets/dark.png';
 import MOON from '../../assets/moon.svg';
-import LIGHT from '../../assets/light.png';
+import SUN from '../../assets/sun.svg';
 import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
@@ -243,7 +240,7 @@ const Navbar = () => {
           <img
             onClick={handleToggle}
             className="w-10"
-            src={LIGHT}
+            src={SUN}
             alt="GlamSpot"
           />
         )}

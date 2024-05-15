@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Loading from '../../Components/AllLootie/Loading';
+import xButtonSVG from '../../assets/x-button.svg';
 
 const BookedServices = () => {
   const { user } = useAuth();
@@ -239,8 +240,16 @@ const BookedServices = () => {
       )}
       {showUpdateModal && (
         <div className="fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10">
-          <div className="w-full md:w-2/3 h-5/6 rounded bg-blue-200 text-center">
-            <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold">
+          <div className="w-full md:w-2/3 h-5/6 rounded-xl bg-blue-200 text-center">
+            <div className="card-actions justify-end">
+              <button
+                onClick={cancelUpdating}
+                className="btn btn-square btn-sm"
+              >
+                <img src={xButtonSVG} alt="close" />
+              </button>
+            </div>
+            <h3 className="mt-2 md:mt-8 text-base md:text-xl font-bold text-black">
               Update the booking ({bookingToUpdate.serviceName})
             </h3>
             <div className="md:mt-8 mx-auto w-full md:w-2/3">
@@ -348,7 +357,7 @@ const BookedServices = () => {
                       readOnly
                     />
 
-                    <label className="block mt-3 mb-1 text-sm">
+                    <label className="block mt-3 mb-1 text-sm text-black">
                       Your instruction
                     </label>
                     <textarea
@@ -361,7 +370,7 @@ const BookedServices = () => {
                       rows="2"
                     />
 
-                    <label className="block mt-1 text-sm">
+                    <label className="block mt-1 text-sm text-black">
                       Service taking date
                     </label>
                     <DatePicker
