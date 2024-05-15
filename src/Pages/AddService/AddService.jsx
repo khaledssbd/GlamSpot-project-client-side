@@ -12,7 +12,7 @@ const AddService = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
-  const handleBooking = async e => {
+  const handleAddService = async e => {
     e.preventDefault();
     const form = e.target;
 
@@ -71,7 +71,7 @@ const AddService = () => {
           />
         </span>
         <div className="mt-8 mx-auto w-full md:w-2/3">
-          <form onSubmit={handleBooking}>
+          <form onSubmit={handleAddService}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Left side */}
               <div className="flex-1">

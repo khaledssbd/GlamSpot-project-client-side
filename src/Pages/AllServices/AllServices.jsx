@@ -143,24 +143,24 @@ const AllServices = () => {
                                 alt={service.serviceName}
                               />
                             </div>
-                            <h1 className="font-semibold text-gray-800 text-center">
+                            <h1 className="font-semibold text-gray-800 text-center flex-grow">
                               {service.serviceName}
                             </h1>
                             <div className="flex items-center justify-around">
                               <div className="text-left">
-                                <p className="mt-2 text-sm text-gray-600 ">
+                                <p className="mt-2 text-xs md:text-sm text-gray-600 flex-grow">
                                   By: {service.providerName}
                                 </p>
-                                <p className="mt-2 text-sm text-gray-600 ">
+                                <p className="mt-2 text-xs md:text-sm text-gray-600 flex-grow">
                                   Area: {service.serviceArea}
                                 </p>
-                                <p className="mt-2 text-sm text-gray-600 ">
+                                <p className="mt-2 text-xs md:text-sm text-gray-600 flex-grow">
                                   Price: ${service.servicePrice}
                                 </p>
                               </div>
                             </div>
                             <Link to={`/service/${service._id}`}>
-                              <button className="text-white hover:bg-red-700 bg-green-500 rounded-lg p-2">
+                              <button className="text-white text-xs hover:bg-red-700 bg-green-500 rounded-md p-1.5">
                                 Details
                               </button>
                             </Link>
