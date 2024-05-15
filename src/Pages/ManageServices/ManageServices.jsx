@@ -136,7 +136,7 @@ const ManageServices = () => {
           style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}
         >
           <Typewriter
-            words={['- Services I provide']}
+            words={['- Service(s) I provide']}
             loop={50}
             cursor
             cursorStyle="_"

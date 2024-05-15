@@ -75,7 +75,7 @@ const ServiceToDo = () => {
           style={{ color: '#fa237d', fontWeight: 'bold', fontSize: '25px' }}
         >
           <Typewriter
-            words={['- Service to do']}
+            words={['- Service(s) to do']}
             loop={50}
             cursor
             cursorStyle="_"

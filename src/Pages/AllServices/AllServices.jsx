@@ -110,7 +110,7 @@ const AllServices = () => {
               onChange={e => handleSearch(e.target.value)}
               value={searchText}
               name="search"
-              placeholder="Search by Service Title"
+              placeholder="Search by service title"
             />
           </div>
         </div>

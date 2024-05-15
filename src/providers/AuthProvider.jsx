@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   updateProfile,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 import PropTypes from 'prop-types';
@@ -46,59 +47,47 @@ const AuthProvider = ({ children }) => {
   };
 
   const updateUserProfile = (userName, userPhotoURL) => {
-    
     return updateProfile(auth.currentUser, {
       displayName: userName,
       photoURL: userPhotoURL,
     });
   };
 
+  const getPassWordResetMail = email => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, currentUser => {
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
       setUser(currentUser);
-      setLoading(false);
+
+      // if user exists then issue a token
+      if (currentUser) {
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/getJwtToken`, loggedUser, {
+            withCredentials: true,
+          })
+          .then(res => {
+            if (res.data.success) {
+              setLoading(false);
+            }
+          });
+      } else {
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/deleteJwtToken`, loggedUser, {
+            withCredentials: true,
+          })
+          .then(res => {
+            if (res.data.success) {
+              setLoading(false);
+            }
+          });
+      }
     });
     return () => unSubscribe();
-  }, []);
-
-
-
-
-    useEffect(() => {
-      const unSubscribe = onAuthStateChanged(auth, currentUser => {
-        const userEmail = currentUser?.email || user?.email;
-        const loggedUser = { email: userEmail };
-        setUser(currentUser);
-
-        // if user exists then issue a token
-        if (currentUser) {
-          axios
-            .post(`${import.meta.env.VITE_API_URL}/getJwtToken`, loggedUser, {
-              withCredentials: true,
-            })
-            .then(res => {
-              if (res.data.success) {
-                setLoading(false);
-              }
-            });
-        } else {
-          axios
-            .post(
-              `${import.meta.env.VITE_API_URL}/deleteJwtToken`,
-              loggedUser,
-              {
-                withCredentials: true,
-              }
-            )
-            .then(res => {
-              if (res.data.success) {
-                setLoading(false);
-              }
-            });
-        }
-      });
-      return () => unSubscribe();
-    }, [user?.email]);
+  }, [user?.email]);
 
   const authInfo = {
     user,
@@ -110,6 +99,7 @@ const AuthProvider = ({ children }) => {
     googleProvider,
 
     updateUserProfile,
+    getPassWordResetMail,
   };
 
   return (
