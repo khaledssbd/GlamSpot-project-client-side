@@ -9,6 +9,8 @@ import {
   signInWithPopup,
   updateProfile,
   sendPasswordResetEmail,
+  FacebookAuthProvider,
+  sendEmailVerification,
 } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 import PropTypes from 'prop-types';
@@ -20,7 +22,7 @@ export const AuthContext = createContext(null);
 
 // social auth providers
 const googleProvider = new GoogleAuthProvider();
-// const facebookProvider = new FacebookAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -29,6 +31,11 @@ const AuthProvider = ({ children }) => {
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const verifyUser = unverifiedUser => {
+    setLoading(true);
+    return sendEmailVerification(unverifiedUser);
   };
 
   const logIn = (email, password) => {
@@ -93,11 +100,12 @@ const AuthProvider = ({ children }) => {
     user,
     loading,
     createUser,
+    verifyUser,
     logIn,
     logOut,
     signInWithSocial,
     googleProvider,
-
+    facebookProvider,
     updateUserProfile,
     getPassWordResetMail,
   };

@@ -71,55 +71,6 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: '/spot-details/:id',
-      //   loader: ({ params }) =>
-      //     fetch(
-      //       `https://ph-a11-server.vercel.app/allTouristsSpot/${params.id}`
-      //     ),
-      //   element: (
-      //     <PrivateRoute>
-      //       <TouristsSpotDetails />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: '/favourite-spots',
-      //   loader: () => fetch('https://ph-a11-server.vercel.app/allTouristsSpot'),
-      //   element: (
-      //     <PrivateRoute>
-      //       <FavouriteSpots />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: '/my-list/',
-      //   element: (
-      //     <PrivateRoute>
-      //       <MyList />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: '/update-spot/:id',
-      //   loader: ({ params }) =>
-      //     fetch(
-      //       `https://ph-a11-server.vercel.app/allTouristsSpot/${params.id}`
-      //     ),
-      //   element: (
-      //     <PrivateRoute>
-      //       <UpdateSingleSpot />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: '/country-based-spots/:country',
-      //   loader: ({ params }) =>
-      //     fetch(
-      //       `https://ph-a11-server.vercel.app/getSpotsByCountry/${params.country}`
-      //     ),
-      //   element: <CountryBasedSpots />,
-      // },
       {
         path: '/login',
         element: <Login />,

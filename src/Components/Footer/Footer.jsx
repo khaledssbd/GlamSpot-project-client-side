@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-// import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter} from 'react-icons/fa6';
-import { FaFacebook, FaLinkedin } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter} from 'react-icons/fa6';
+
 
 const Footer = () => {
   return (
@@ -45,7 +45,7 @@ const Footer = () => {
             >
               <FaFacebook />
             </a>
-            {/* <a
+            <a
               href="https://twitter.com/mdkhaledsshuvo"
               className="text-[#1DA1F2] cursor-pointer"
             >
@@ -56,7 +56,7 @@ const Footer = () => {
               className="text-[#E1306C] cursor-pointer"
             >
               <FaInstagram />
-            </a> */}
+            </a>
             <a
               href="https://www.linkedin.com/in/mdkhaledsshuvo"
               className="text-[#0077B5] cursor-pointer"

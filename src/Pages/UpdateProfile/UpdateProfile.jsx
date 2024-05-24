@@ -1,21 +1,42 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import useAuth from '../../hooks/useAuth';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { TbFidgetSpinner } from 'react-icons/tb';
+
+const image_hosting_key = import.meta.env.VITE_IMGBB_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const UpdateProfile = () => {
   const { updateUserProfile, user } = useAuth();
+  const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
-  const handleRegister = e => {
+  const handleRegister = async e => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const photo = e.target.photo.value;
+    const form = e.target;
+    const name = form.name.value;
 
-    updateUserProfile(name, photo)
-      .then(() => {
+    const image = form.image.files[0];
+    const formData = new FormData();
+    formData.append('image', image);
+
+    setUpdating(true);
+    try {
+      const { data } = await axios.post(image_hosting_api, formData);
+      await updateUserProfile(name, data.data.display_url).then(() => {
+        toast.success('Profile Updated Successfully!');
         navigate('/user-profile');
+        setUpdating(false);
         window.location.reload();
-      })
-      // .catch(error => console.log(error.message));
+      });
+    } catch (error) {
+      setUpdating(false);
+      toast.error(error);
+    }
+
+    setUpdating(false);
   };
 
   return (
@@ -42,15 +63,14 @@ const UpdateProfile = () => {
         </div>
         <div className="form-control">
           <label className="label label-text text-base font-semibold mt-5">
-            Photo URL
+            Select Image:
           </label>
           <input
-            type="text"
+            type="file"
+            accept="image/*"
             required
-            name="photo"
-            placeholder="Your Photo URL"
-            defaultValue={user?.photoURL}
-            className="input input-bordered"
+            name="image"
+            className="file-input file-input-bordered w-full max-w-xs"
           />
         </div>
         <div className="form-control">
@@ -67,9 +87,17 @@ const UpdateProfile = () => {
             readOnly
           />
         </div>
-        <div className="form-control mt-6">
-          <button className="btn btn-primary">Update</button>
-        </div>
+        <button
+          disabled={updating}
+          type="submit"
+          className="bg-primary w-full rounded-md py-3 text-white mt-6"
+        >
+          {updating ? (
+            <TbFidgetSpinner className="animate-spin m-auto" />
+          ) : (
+            'Update'
+          )}
+        </button>
       </form>
 
       <p className="text-center mt-4">

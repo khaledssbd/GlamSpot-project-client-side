@@ -1,61 +1,95 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import googleSvg from '../../assets/google.svg';
-// import facebookSvg from '../../assets/facebook.svg';
+import facebookSvg from '../../assets/facebook.svg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import bgImg from '../../assets/carousel2.jpg';
 import xButtonSVG from '../../assets/x-button.svg';
+import Swal from 'sweetalert2';
+import {loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha} from 'react-simple-captcha';
 
 const Login = () => {
-  // const { logIn, signInWithSocial, facebookProvider, googleProvider } = useAuth();
-  const { logIn, signInWithSocial, googleProvider, getPassWordResetMail } =
-    useAuth();
+  const [disabled, setDisabled] = useState(true);
+  const captchaRef = useRef(null);
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+       
+  const { user, logIn, verifyUser, logOut, signInWithSocial, googleProvider, facebookProvider, getPassWordResetMail } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef(null);
   const [showForgotPassModal, setShowForgotPassModal] = useState(false);
-  const [
-    passWordResetMailSentConfirmation,
-    setPassWordResetMailSentConfirmation,
-  ] = useState(false);
+  const [ passWordResetMailSentConfirmation, setPassWordResetMailSentConfirmation ] = useState(false);
 
-  const handleLogin = e => {
+  const handleLogin = async e => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    logIn(email, password)
-      .then(() => {
-        navigate(location?.state ? location.state : '/');
+
+    try {
+      const result = await logIn(email, password);
+
+      if (!result?.user?.emailVerified) {
+        await logOut();
+        await verifyUser(result.user);
+        Swal.fire(
+          'Alert!',
+          'You must verify your email. Check your inbox.',
+          'error'
+        );
+      } else {
+        navigate(location?.state || '/');
         toast.success('Account logged-in successfully!');
-      })
-      .catch(error => {
-        if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-          toast.error('Email or password is wrong, try again or reset..');
-        }
-      });
+      }
+    } catch (error) {
+      if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+        toast.error('Email or password is wrong, try again or reset.');
+      } else if (
+        error.message === 'Firebase: Error (auth/too-many-requests).'
+      ) {
+        toast.error('Too many requests may ban your account. Verify now.');
+      } else {
+        toast.error('An error occurred during login. Please try again.');
+      }
+    }
   };
 
-  const socialSignIn = provider => {
-    signInWithSocial(provider).then(() => {
-      navigate(location?.state ? location.state : '/');
-      toast.success('Successfully logged in');
-    });
+  const socialSignIn = async provider => {
+    await signInWithSocial(provider);
+    navigate(location?.state ? location.state : '/');
+    toast.success('Successfully logged in');
   };
 
-  const handlePasswordReset = e => {
+  const handleValidateCaptcha = e => {
+    e.preventDefault();
+    const user_captcha_value = captchaRef.current.value;
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
+
+  const handlePasswordReset = async e => {
     e.preventDefault();
     const email = e.target.emailForPassReset.value;
-    getPassWordResetMail(email)
-      .then(() => {
-        setPassWordResetMailSentConfirmation(true);
-      })
-      .catch(error => toast.error(error.message));
+
+    try {
+      await getPassWordResetMail(email);
+      setPassWordResetMailSentConfirmation(true);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
+
+  if (user) return navigate('/');
 
   return (
     <div
@@ -70,7 +104,7 @@ const Login = () => {
       }}
     >
       <Helmet>
-        <title>GlamSpot | Login</title>
+        <title>Bistro Boss | Login</title>
       </Helmet>
       <h2 className="my-10 text-xl sm:text-2xl md:text-3xl font-medium text-center text-white">
         Login
@@ -109,6 +143,30 @@ const Login = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
+          <div className="text-start">
+            <label className="label label-text text-white text-lg pb-1 mt-3">
+              <LoadCanvasTemplate />
+            </label>
+
+            <input
+              type="text"
+              required
+              ref={captchaRef}
+              name="captcha"
+              placeholder="Type your captcha"
+              className="input input-bordered w-full"
+              autoComplete="true"
+            />
+            <button
+              className={`text-white text-start btn btn-xs mt-2 w-full sm:w-1/3 ${
+                disabled ? 'bg-red-500' : 'btn-outline'
+              }`}
+              onClick={handleValidateCaptcha}
+            >
+              Validate
+            </button>
+          </div>
+
           <label className="label">
             <div
               onClick={() => setShowForgotPassModal(true)}
@@ -119,7 +177,12 @@ const Login = () => {
           </label>
         </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Login</button>
+          <button
+            disabled={disabled}
+            className="btn btn-primary disabled:bg-gray-500"
+          >
+            Login
+          </button>
         </div>
       </form>
       <div className="">
@@ -132,13 +195,13 @@ const Login = () => {
           >
             <img className="w-9" src={googleSvg} alt="Google" />
           </button>
-          {/* <button
+          <button
             onClick={() => {
               socialSignIn(facebookProvider);
             }}
           >
             <img className="w-9" src={facebookSvg} alt="Facebook" />
-          </button> */}
+          </button>
         </div>
       </div>
       <p className="text-center text-white mt-4">
@@ -172,7 +235,7 @@ const Login = () => {
             </div>
             {passWordResetMailSentConfirmation ? (
               <div className="px-5 md:px-10 pt-10 xl:pt-16">
-                <h3 className="text-black md:text-lg">
+                <h3 className="text-black md:text-lg font-medium">
                   Password reset mail sent to the email. Check your inbox.
                 </h3>
               </div>

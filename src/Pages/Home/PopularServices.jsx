@@ -29,11 +29,11 @@ const PopularServices = ({ allServices }) => {
         </span>
       </h4>
       <div className="my-16 flex justify-center items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {allServices?.slice(2, 8)?.map(service => (
             <div
               key={service._id}
-              className="p-3 bg-gray-300 rounded-xl flex flex-col"
+              className="p-3 bg-gray-200 border border-gray-400 shadow-md rounded-xl flex flex-col"
               data-aos="zoom-out-up"
             >
               <div className="flex justify-center items-center">

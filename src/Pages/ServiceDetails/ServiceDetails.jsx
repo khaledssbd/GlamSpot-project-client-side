@@ -54,10 +54,6 @@ const ServiceDetails = () => {
       serviceStatus,
     };
 
-    // if (customerEmail === providerEmail) {
-    //   return toast.error("You can't book your own service");
-    // }
-
     try {
       const { data } = await axiosSecure.post(
         `/book-now?email=${user?.email}`,
@@ -103,7 +99,7 @@ const ServiceDetails = () => {
               Bookings: {totalBookings}
             </div>
             <div className="text-left">
-              <h3 className="text-start text-base font-normal">
+              <h3 className="text-base font-normal whitespace-pre-line text-justify">
                 Description: {serviceDescription}
               </h3>
             </div>
@@ -130,7 +126,12 @@ const ServiceDetails = () => {
             </div>
             <div className="text-center mt-5">
               <button
-                onClick={() => setShowBookingForm(!showBookingForm)}
+                onClick={() => {
+                  if (user?.email === providerEmail) {
+                    return toast.error("You can't book your own service");
+                  }
+                  setShowBookingForm(!showBookingForm);
+                }}
                 className="btn text-xs md:text-sm bg-blue-500 hover:bg-green-500 text-white hover:text-black"
               >
                 Book Now

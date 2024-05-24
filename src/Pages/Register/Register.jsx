@@ -3,28 +3,28 @@ import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import googleSvg from '../../assets/google.svg';
-// import facebookSvg from '../../assets/facebook.svg';
+import facebookSvg from '../../assets/facebook.svg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import bgImg from '../../assets/heroImg.jpg';
-import xButtonSVG from '../../assets/x-button.svg';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import Loading from '../../Components/AllLootie/Loading';
+
+const image_hosting_key = import.meta.env.VITE_IMGBB_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
-  // const {
-  //   createUser,
-  //   logOut,
-  //   signInWithSocial,
-  //   facebookProvider,
-  //   googleProvider,
-  //   updateUserProfile,
-  // } = useAuth();
+  const [registering, setRegistering] = useState(false);
   const {
+    user,
     createUser,
+    verifyUser,
     logOut,
     signInWithSocial,
     googleProvider,
+    facebookProvider,
     updateUserProfile,
-    getPassWordResetMail,
   } = useAuth();
 
   const navigate = useNavigate();
@@ -33,19 +33,16 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const emailRef = useRef(null);
-  const [showForgotPassModal, setShowForgotPassModal] = useState(false);
-  const [
-    passWordResetMailSentConfirmation,
-    setPassWordResetMailSentConfirmation,
-  ] = useState(false);
 
-  const handleRegister = e => {
+  const handleRegister = async e => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const photo = e.target.photo.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const confirmPassword = e.target.confirmPassword.value;
+
+    const form = e.target;
+    const name = form.name.value;
+    const image = form.image.files[0];
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
 
     setEmailError('');
     setPassError('');
@@ -82,11 +79,6 @@ const Register = () => {
       return;
     }
 
-    // if (password.length < 6) {
-    //   setPassError('Password must be of at least 6 characters');
-    //   return;
-    // }
-
     if (password !== confirmPassword) {
       setPassError("Password and Confirm Password didn't match");
       return;
@@ -96,39 +88,56 @@ const Register = () => {
       return;
     }
 
-    createUser(email, password)
-      .then(() => {
-        updateUserProfile(name, photo).then(() => {
-          logOut().then(() => {
-            navigate('/login');
-            toast.success('Account created successfully! Please login');
-          });
-        });
-      })
-      .catch(error => {
-        if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
-          navigate('/login');
-          toast.error('Account already exists. Please log in..');
-        } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
-          setEmailError('Must use a valid email address');
-        }
-      });
+    const formData = new FormData();
+    formData.append('image', image);
+    setRegistering(true);
+
+    try {
+      const { data } = await axios.post(image_hosting_api, formData);
+      const result = await createUser(email, password);
+      await updateUserProfile(name, data.data.display_url);
+      await logOut();
+      await verifyUser(result.user);
+
+      setRegistering(false);
+      navigate('/login');
+      Swal.fire(
+        'Account created!',
+        'You must verify your email. Check your inbox.',
+        'success'
+      );
+    } catch (error) {
+      setRegistering(false);
+      if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+        navigate('/login');
+        toast.error('Account already exists. Please log in.');
+      } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
+        setEmailError('Must use a valid email address');
+      } else {
+        toast.error('An error occurred during registration. Please try again.');
+      }
+    }
+    setRegistering(false);
   };
 
-  const socialSignIn = provider => {
-    signInWithSocial(provider).then(() => {
-      navigate(location?.state ? location.state : '/');
-      toast.success('Successfully registered');
-    });
+  const socialSignIn = async provider => {
+    await signInWithSocial(provider);
+    navigate(location?.state ? location.state : '/');
+    toast.success('Successfully registered');
   };
 
-  const handlePasswordReset = e => {
-    e.preventDefault();
-    const email = e.target.emailForPassReset.value;
-    getPassWordResetMail(email).then(() => {
-      setPassWordResetMailSentConfirmation(true);
-    });
-  };
+  if (registering) {
+    return (
+      <div className="flex justify-center items-center pt-44">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (user) {
+    return navigate('/');
+  }
+
   return (
     <div
       className="my-5 md:my-10 p-5 md:p-10"
@@ -173,13 +182,15 @@ const Register = () => {
           )}
         </div>
         <div className="form-control">
-          <label className="label label-text text-white mt-2">Photo URL</label>
+          <label className="label label-text text-white mt-2">
+            Select Image:
+          </label>
           <input
-            type="text"
+            type="file"
+            accept="image/*"
             required
-            name="photo"
-            placeholder="Your Photo URL"
-            className="input input-bordered"
+            name="image"
+            className="file-input file-input-bordered w-full max-w-xs"
           />
         </div>
 
@@ -242,14 +253,6 @@ const Register = () => {
               </small>
             )}
           </div>
-          <label className="label">
-            <div
-              onClick={() => setShowForgotPassModal(true)}
-              className="label-text-alt link link-hover text-white text-sm"
-            >
-              Forgot password?
-            </div>
-          </label>
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Register</button>
@@ -265,13 +268,13 @@ const Register = () => {
           >
             <img className="w-9" src={googleSvg} alt="Google" />
           </button>
-          {/* <button
+          <button
             onClick={() => {
               socialSignIn(facebookProvider);
             }}
           >
             <img className="w-9" src={facebookSvg} alt="Facebook" />
-          </button> */}
+          </button>
         </div>
       </div>
       <p className="text-center text-white mt-4">
@@ -280,60 +283,6 @@ const Register = () => {
           Login
         </Link>
       </p>
-      {showForgotPassModal && (
-        <div
-          style={{
-            borderRadius: '24px',
-            background:
-              'linear-gradient(0deg, rgba(21, 11, 43, 0.90) 0%, rgba(21, 11, 43, 0.70) 100%)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-          className="fixed top-0 left-0 flex justify-center items-center h-screen w-full z-10"
-        >
-          <div className="w-full mx-3 sm:w-1/3 h-1/3 rounded-2xl bg-blue-400 text-center">
-            <div className="card-actions justify-end">
-              <button
-                onClick={() => {
-                  setShowForgotPassModal(false);
-                  setPassWordResetMailSentConfirmation(false);
-                }}
-                className="btn btn-square btn-sm"
-              >
-                <img src={xButtonSVG} alt="close" />
-              </button>
-            </div>
-            {passWordResetMailSentConfirmation ? (
-              <div className="px-5 md:px-10 pt-10 xl:pt-16">
-                <h3 className="text-black md:text-lg">
-                  Password reset mail sent to the email. Check your inbox.
-                </h3>
-              </div>
-            ) : (
-              <form onSubmit={handlePasswordReset} className="px-5">
-                <h3 className="mb-2 text-black text-xl font-bold md:mt-5">
-                  Your Email
-                </h3>
-                <div className="form-control">
-                  <input
-                    type="email"
-                    required
-                    defaultValue={emailRef.current.value}
-                    name="emailForPassReset"
-                    placeholder="Enter your email"
-                    className="input input-bordered"
-                  />
-                </div>
-                <input
-                  className="mt-2 sm:mt-4 md:mt-8 px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-red-700 focus:outline-none cursor-pointer"
-                  type="submit"
-                  value="Get reset mail"
-                />
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
