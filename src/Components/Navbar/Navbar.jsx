@@ -8,7 +8,7 @@ import SUN from '../../assets/sun.svg';
 import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut } = useAuth()
 
   // theme change part start
   const [theme, setTheme] = useState();
@@ -325,11 +325,11 @@ const Navbar = () => {
                 Login
               </button>
             </Link>
-            {/* <Link to="/register">
+            <Link to="/register">
               <button className="btn btn-outline bg-blue-600 hover:bg-black text-white hover:text-white hidden sm:flex">
                 Register
               </button>
-            </Link> */}
+            </Link>
           </>
         )}
       </div>

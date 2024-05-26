@@ -8,9 +8,11 @@ import { useEffect } from 'react';
 import 'react-tooltip/dist/react-tooltip.css';
 
 const Root = () => {
+  
   useEffect(() => {
     AOS.init({ duration: '1000' });
   }, []);
+
   return (
     <div>
       <ScrollRestoration />

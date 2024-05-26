@@ -1,7 +1,8 @@
-import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Loading from '../Components/AllLootie/Loading';
 import useAuth from '../hooks/useAuth';
+import { Navigate, useLocation } from 'react-router-dom';
+import Loading from '../Components/AllLootie/Loading';
+
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
@@ -18,13 +19,12 @@ const PrivateRoute = ({ children }) => {
     return children;
   }
 
-  return (
-    <Navigate state={location.pathname} to="/login" replace={true}></Navigate>
-  );
+  // return (<Navigate state={location.pathname} to="/login" replace={true}></Navigate>);
+  return <Navigate state={{ from: location }} to="/login" replace></Navigate>;
 };
 
 export default PrivateRoute;
 
 PrivateRoute.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node
 };

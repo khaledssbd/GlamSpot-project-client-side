@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -122,7 +122,7 @@ const Register = () => {
 
   const socialSignIn = async provider => {
     await signInWithSocial(provider);
-    navigate(location?.state ? location.state : '/');
+    navigate('/login');
     toast.success('Successfully registered');
   };
 
@@ -135,7 +135,7 @@ const Register = () => {
   }
 
   if (user) {
-    return navigate('/');
+    return <Navigate to="/"></Navigate>;
   }
 
   return (

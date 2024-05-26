@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -9,29 +9,82 @@ import useAuth from '../../hooks/useAuth';
 import bgImg from '../../assets/carousel2.jpg';
 import xButtonSVG from '../../assets/x-button.svg';
 import Swal from 'sweetalert2';
-import {loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha} from 'react-simple-captcha';
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from 'react-simple-captcha';
+import Loading from '../../Components/AllLootie/Loading';
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const captchaRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+ 
+
+  const {
+    user,
+    logIn,
+    verifyUser,
+    logOut,
+    signInWithSocial,
+    googleProvider,
+    facebookProvider,
+    getPassWordResetMail,
+  } = useAuth();
+
+    const [showPassword, setShowPassword] = useState(false);
+  const emailRef = useRef(null);
+  const [logging, setLogging] = useState(false);
+  const [showForgotPassModal, setShowForgotPassModal] = useState(false);
+  const [
+    passWordResetMailSentConfirmation,
+    setPassWordResetMailSentConfirmation,
+  ] = useState(false);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
-       
-  const { user, logIn, verifyUser, logOut, signInWithSocial, googleProvider, facebookProvider, getPassWordResetMail } = useAuth();
 
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const emailRef = useRef(null);
-  const [showForgotPassModal, setShowForgotPassModal] = useState(false);
-  const [ passWordResetMailSentConfirmation, setPassWordResetMailSentConfirmation ] = useState(false);
+  // const handleLogin = async e => {
+  //   e.preventDefault();
+  //   const email = e.target.email.value;
+  //   const password = e.target.password.value;
+  //   try {
+  //     const result = await logIn(email, password);
+  //     if (!result?.user?.emailVerified) {
+  //       await logOut();
+  //       await verifyUser(result.user);
+  //       Swal.fire(
+  //         'Alert!',
+  //         'You must verify your email. Check your inbox.',
+  //         'error'
+  //       );
+  //     } else {
+  //       navigate(location?.state || '/');
+  //       toast.success('Account logged-in successfully!');
+  //     }
+  //   } catch (error) {
+  //     if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+  //       toast.error('Email or password is wrong, try again or reset.');
+  //     } else if (
+  //       error.message === 'Firebase: Error (auth/too-many-requests).'
+  //     ) {
+  //       toast.error('Too many requests may ban your account. Verify now.');
+  //     } else {
+  //       toast.error('An error occurred during login. Please try again.');
+  //     }
+  //   }
+  // };
 
   const handleLogin = async e => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    setLogging(true);
+    const form = e.target;
+
+    const email = form.email.value;
+    const password = form.password.value;
 
     try {
       const result = await logIn(email, password);
@@ -39,37 +92,87 @@ const Login = () => {
       if (!result?.user?.emailVerified) {
         await logOut();
         await verifyUser(result.user);
-        Swal.fire(
-          'Alert!',
-          'You must verify your email. Check your inbox.',
-          'error'
-        );
+        setLogging(false);
+        Swal.fire({
+          title: 'Alert!',
+          text: 'You must verify your email before login. Check your inbox.',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ok',
+        }).then(async result => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       } else {
-        navigate(location?.state || '/');
+        
+        navigate(from, { replace: true });
+        // navigate(location?.state ? location.state : '/');
         toast.success('Account logged-in successfully!');
+        // Swal.fire({
+        //   title: 'Account logged-in successfully!',
+        //   showClass: {
+        //     popup: 'animate__animated animate__fadeInDown',
+        //   },
+        //   hideClass: {
+        //     popup: 'animate__animated animate__fadeOutUp',
+        //   },
+        // });
       }
     } catch (error) {
+      setLogging(false);
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-        toast.error('Email or password is wrong, try again or reset.');
+        Swal.fire({
+          title: 'Alert!',
+          text: 'Email or password is wrong, try again or reset.',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ok',
+        }).then(async result => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       } else if (
         error.message === 'Firebase: Error (auth/too-many-requests).'
       ) {
-        toast.error('Too many requests may ban your account. Verify now.');
+        Swal.fire({
+          title: 'Alert!',
+          text: 'Too many trial may ban your account. Verify email quickly.',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ok',
+        }).then(async result => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       } else {
-        toast.error('An error occurred during login. Please try again.');
+        Swal.fire({
+          title: 'Alert!',
+          text: 'An error occurred during login. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ok',
+        }).then(async result => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       }
     }
   };
 
   const socialSignIn = async provider => {
     await signInWithSocial(provider);
-    navigate(location?.state ? location.state : '/');
+    navigate(from, { replace: true });
+    // navigate(location?.state ? location.state : '/');
     toast.success('Successfully logged in');
   };
 
   const handleValidateCaptcha = e => {
     e.preventDefault();
-    const user_captcha_value = captchaRef.current.value;
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);
     } else {
@@ -89,7 +192,17 @@ const Login = () => {
     }
   };
 
-  if (user) return navigate('/');
+  if (logging) {
+    return (
+      <div className="flex justify-center items-center pt-44">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (user) {
+    return <Navigate to="/"></Navigate>;
+  }
 
   return (
     <div
@@ -104,7 +217,7 @@ const Login = () => {
       }}
     >
       <Helmet>
-        <title>Bistro Boss | Login</title>
+        <title>GlamSpot | Login</title>
       </Helmet>
       <h2 className="my-10 text-xl sm:text-2xl md:text-3xl font-medium text-center text-white">
         Login
@@ -148,23 +261,26 @@ const Login = () => {
               <LoadCanvasTemplate />
             </label>
 
-            <input
-              type="text"
-              required
-              ref={captchaRef}
-              name="captcha"
-              placeholder="Type your captcha"
-              className="input input-bordered w-full"
-              autoComplete="true"
-            />
-            <button
-              className={`text-white text-start btn btn-xs mt-2 w-full sm:w-1/3 ${
-                disabled ? 'bg-red-500' : 'btn-outline'
-              }`}
-              onClick={handleValidateCaptcha}
-            >
-              Validate
-            </button>
+            <div className="flex w-full sm:w-1/2">
+              <input
+                type="text"
+                required
+                onBlur={handleValidateCaptcha}
+                name="captcha"
+                placeholder="Type your captcha"
+                className="input input-bordered w-full"
+                autoComplete="true"
+              />
+              <a
+                className={`text-white btn  ${
+                  disabled
+                    ? 'bg-red-600 -ml-16'
+                    : 'bg-green-600 hover:bg-green-600 -ml-20'
+                }`}
+              >
+                {disabled ? 'Check' : 'Passed'}
+              </a>
+            </div>
           </div>
 
           <label className="label">
@@ -178,7 +294,7 @@ const Login = () => {
         </div>
         <div className="form-control mt-6">
           <button
-            disabled={disabled}
+            // disabled={disabled}
             className="btn btn-primary disabled:bg-gray-500"
           >
             Login

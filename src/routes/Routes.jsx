@@ -26,11 +26,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/all-services',
+        path: 'all-services',
         element: <AllServices />,
       },
       {
-        path: '/service/:id',
+        path: 'service/:id',
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/service-details/${params.id}`),
         element: (
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/add-service',
+        path: 'add-service',
         element: (
           <PrivateRoute>
             <AddService />
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/manage-services',
+        path: 'manage-services',
         element: (
           <PrivateRoute>
             <ManageServices />
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/booked-services',
+        path: 'booked-services',
         element: (
           <PrivateRoute>
             <BookedServices />
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/service-to-do',
+        path: 'service-to-do',
         element: (
           <PrivateRoute>
             <ServiceToDo />
@@ -72,15 +72,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/login',
+        path: 'login',
         element: <Login />,
       },
       {
-        path: '/register',
+        path: 'register',
         element: <Register />,
       },
       {
-        path: '/update-profile',
+        path: 'update-profile',
         element: (
           <PrivateRoute>
             <UpdateProfile />
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/user-profile',
+        path: 'user-profile',
         element: (
           <PrivateRoute>
             <UserProfile />
