@@ -8,7 +8,7 @@ const UserProfile = () => {
   const { user } = useAuth();
 
   return (
-    <div className="mb-20">
+    <div className="py-20">
       <Helmet>
         <title>GlamSpot | User Profile</title>
       </Helmet>

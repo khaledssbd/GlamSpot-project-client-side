@@ -18,7 +18,7 @@ const SwiperSlides = ({ allServices }) => {
     <div>
       <h4
         className="font-play text-xl md:text-3xl font-medium my-10 md:my-16"
-        data-aos="zoom-out"
+        // data-aos="zoom-out" ---> issue= it enlarges x-axis size of where it is used
       >
         Our services
       </h4>

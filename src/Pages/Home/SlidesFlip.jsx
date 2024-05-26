@@ -16,7 +16,7 @@ const SlidesFlip = () => {
     <div className="my-10">
       <h4
         className="font-play text-xl md:text-3xl font-medium mb-4"
-        data-aos="zoom-out-down"
+        // data-aos="zoom-out-down" ---> issue= it enlarges x-axis size of where it is used
       >
         Slides of Services{' (click on the Image)'}
       </h4>
