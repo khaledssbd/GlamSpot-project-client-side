@@ -1,11 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
-
 import useAuth from '../../hooks/useAuth';
 import { Typewriter } from 'react-simple-typewriter';
+import axios from 'axios';
+
+const image_hosting_key = import.meta.env.VITE_IMGBB_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddService = () => {
   const { user } = useAuth();
@@ -16,7 +18,7 @@ const AddService = () => {
     e.preventDefault();
     const form = e.target;
 
-    const serviceImage = form.serviceImage.value;
+    const serviceImage = form.serviceImage.files[0];
     const serviceName = form.serviceName.value;
     const servicePrice = form.servicePrice.value;
     const serviceArea = form.serviceArea.value;
@@ -26,29 +28,38 @@ const AddService = () => {
     const providerName = form.providerName.value;
     const totalBookings = 0;
 
-    const serviceDoc = {
-      serviceImage,
-      serviceName,
-      servicePrice,
-      serviceArea,
-      serviceDescription,
-      providerEmail,
-      providerImage,
-      providerName,
-      totalBookings,
-    };
+    const formData = new FormData();
+    formData.append('image', serviceImage);
 
-    axiosSecure
-      .post(`/add-service?email=${user?.email}`, serviceDoc)
-      .then(res => {
-        if (res.data.insertedId) {
-          toast.success('Service added successfully');
-          navigate('/manage-services');
-        }
-      })
-      .catch(err => {
-        toast.error(err.message);
-      });
+    try {
+      const { data } = await axios.post(image_hosting_api, formData);
+      const imageUrl = data.data.display_url;
+
+      const serviceDoc = {
+        serviceImage: imageUrl,
+        serviceName,
+        servicePrice,
+        serviceArea,
+        serviceDescription,
+        providerEmail,
+        providerImage,
+        providerName,
+        totalBookings,
+      };
+
+      const { data: serviceConf } = await axiosSecure.post(
+        `/add-service?email=${user?.email}`,
+        serviceDoc
+      );
+
+      if (serviceConf.insertedId) {
+        toast.success('Service added successfully');
+        navigate('/manage-services');
+      }
+    } catch (err) {
+      toast.error(err.message);
+      return;
+    }
   };
   return (
     <div className="my-10">
@@ -84,15 +95,13 @@ const AddService = () => {
                   placeholder="Service name"
                 />
 
-                <label className="block mt-4 mb-1">
-                  Service ImageURL (1440px × 960px suits best)
-                </label>
+                <label className="block mt-4 mb-1">Service Image</label>
                 <input
-                  className="w-full p-2 border rounded-lg focus:outline-green-500"
-                  type="text"
                   required
+                  type="file"
                   name="serviceImage"
-                  placeholder="Service imageURL"
+                  accept="image/*"
+                  className="file-input file-input-bordered w-full"
                 />
 
                 <label className="block mt-4 mb-1">Service Price in $</label>

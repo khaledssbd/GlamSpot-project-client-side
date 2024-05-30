@@ -12,6 +12,10 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Loading from '../../Components/AllLootie/Loading';
 import xButtonSVG from '../../assets/x-button.svg';
+import toast from 'react-hot-toast';
+
+const image_hosting_key = import.meta.env.VITE_IMGBB_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const ManageServices = () => {
   const { user } = useAuth();
@@ -96,20 +100,31 @@ const ManageServices = () => {
   const handleUpdateService = async e => {
     e.preventDefault();
     const form = e.target;
-    const serviceImage = form.serviceImage.value;
+    const serviceImage = form.serviceImage.files[0];
     const serviceName = form.serviceName.value;
     const servicePrice = form.servicePrice.value;
     const serviceArea = form.serviceArea.value;
     const serviceDescription = form.serviceDescription.value;
 
-    const updateData = {
-      serviceImage,
-      serviceName,
-      servicePrice,
-      serviceArea,
-      serviceDescription,
-    };
-    await updateService.mutateAsync({ updateData });
+    const formData = new FormData();
+    formData.append('image', serviceImage);
+
+    try {
+      const { data } = await axios.post(image_hosting_api, formData);
+      const imageUrl = data.data.display_url;
+
+      const updateData = {
+        serviceImage: imageUrl,
+        serviceName,
+        servicePrice,
+        serviceArea,
+        serviceDescription,
+      };
+
+      await updateService.mutateAsync({ updateData });
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const cancelUpdating = () => {
@@ -225,14 +240,14 @@ const ManageServices = () => {
                     />
 
                     <label className="block mt-3 mb-1 text-sm text-black">
-                      Service Image (1440px × 960px suits best)
+                      Service Image
                     </label>
                     <input
-                      className="md:w-full p-2 border rounded-lg focus:outline-green-500 text-sm"
-                      type="text"
                       required
-                      defaultValue={serviceToUpdate.serviceImage}
+                      type="file"
                       name="serviceImage"
+                      accept="image/*"
+                      className="file-input file-input-bordered w-full"
                     />
 
                     <label className="block mt-4 mb-1 text-sm text-black">

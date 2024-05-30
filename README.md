@@ -45,9 +45,13 @@
 # npm other Packages
 
 - npm i aos
+- npm i axios
+- npm i jspdf
 - npm i swiper
+- npm i firebase
 - npm i react-icons
 - npm i sweetalert2
+- npm i lottie-react
 - npm i framer-motion
 - npm i react-tooltip
 - npm i react-hot-toast
