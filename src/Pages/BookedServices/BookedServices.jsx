@@ -1,4 +1,4 @@
-import {useState } from 'react';
+import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { Helmet } from 'react-helmet-async';
@@ -15,8 +15,14 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Loading from '../../Components/AllLootie/Loading';
 import xButtonSVG from '../../assets/x-button.svg';
 
+// for export pdf
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
+
 const BookedServices = () => {
   const { user } = useAuth();
+  const doc = new jsPDF();
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [bookingToUpdate, setBookingToUpdate] = useState({});
@@ -36,7 +42,6 @@ const BookedServices = () => {
       return data;
     },
   });
-
 
   // delete a booking instance
   const deleteBooking = useMutation({
@@ -122,6 +127,12 @@ const BookedServices = () => {
     setBookingToUpdate({});
   };
 
+  const handleExportPDF = () => {
+    doc.autoTable({ html: '#booked-table', bodyStyles: {fillColor: 'yellow'} });
+    doc.save('booked-services.pdf');
+
+  };
+git 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
@@ -147,10 +158,18 @@ const BookedServices = () => {
           delaySpeed={1500}
         />
       </span>
+      <div className="text-end">
+        <button
+          className="btn bg-green-400 text-white"
+          onClick={handleExportPDF}
+        >
+          Export PDF
+        </button>
+      </div>
 
       {bookings.length > 0 ? (
         <div className="overflow-x-auto rounded-2xl border border-black mt-8">
-          <table className="table table-zebra">
+          <table className="table table-zebra" id='booked-table'>
             {/* head starts here */}
             <thead className="bg-green-400">
               <tr>
