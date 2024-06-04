@@ -15,7 +15,7 @@
 - All Device Responsive
 - Add your service to database and manage them
 - Book others service as a user
-- provide service and update service status in database
+- provide and update service status in database
 - Loading data in a amazing way with no bug using TanStack Query
 - axiosSecure to force logout a hacker who wants to ge others data
 - CRUD or REST(Representational State Transfer) API(Application Programming

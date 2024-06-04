@@ -15,6 +15,7 @@ const AllServices = () => {
   const [searchedServices, setSearchedServices] = useState([]);
   const [showSearchResult, setShowSearchResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios.get(
@@ -48,6 +49,7 @@ const AllServices = () => {
   const handlePaginationButton = value => {
     setCurrentPage(value);
   };
+  
   const handleReset = () => {
     setSort('');
     setSearchText('');

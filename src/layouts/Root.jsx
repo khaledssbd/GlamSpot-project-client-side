@@ -16,7 +16,7 @@ const Root = () => {
   return (
     <div>
       <ScrollRestoration />
-      <div className="lg:mx-28 md:20 sm:mx-5 mx-3 md:mt-8 mt-4">
+      <div className="mx-3 sm:mx-5 lg:mx-28 md:20 md:mt-8 mt-4">
         <div>
           <Navbar />
         </div>
