@@ -22,7 +22,7 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
  
-// user data dadad
+// user data
   const {
     user,
     logIn,
