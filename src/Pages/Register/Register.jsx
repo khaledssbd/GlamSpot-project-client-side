@@ -1,5 +1,5 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import googleSvg from '../../assets/google.svg';
@@ -32,7 +32,7 @@ const Register = () => {
   const [emailError, setEmailError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const emailRef = useRef(null);
+
 
   const handleRegister = async e => {
     e.preventDefault();
@@ -173,7 +173,6 @@ const Register = () => {
             type="email"
             required
             name="email"
-            ref={emailRef}
             placeholder="Your Email"
             className="input input-bordered"
           />

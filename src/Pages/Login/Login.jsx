@@ -21,8 +21,8 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
- 
-// user data222
+
+  // user data
   const {
     user,
     logIn,
@@ -34,7 +34,7 @@ const Login = () => {
     getPassWordResetMail,
   } = useAuth();
 
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef(null);
   const [logging, setLogging] = useState(false);
   const [showForgotPassModal, setShowForgotPassModal] = useState(false);
@@ -105,7 +105,6 @@ const Login = () => {
           }
         });
       } else {
-        
         navigate(from, { replace: true });
         // navigate(location?.state ? location.state : '/');
         toast.success('Account logged-in successfully!');
