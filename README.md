@@ -95,9 +95,6 @@ Before you begin, ensure you have the following installed on your local machine:
 - npm i firebase
 - npm i react-icons
 - npm i sweetalert2
-- npm i lottie-react
-- npm i framer-motion
-- npm i react-tooltip
 - npm i react-hot-toast
 - npm i react-router-dom
 - npm i react-helmet-async
