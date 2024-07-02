@@ -15,7 +15,54 @@
 
 ---
 
-## Getting Started
+# Project Overview:
+
+- Add your service to database and manage them
+- Book others service as a user
+- provide and update service status in database
+
+# Features
+
+- Loading data in a amazing way with no bug using TanStack Query
+- axiosSecure to force logout a hacker who wants to ge others data
+- CRUD or REST(Representational State Transfer) API(Application Programming
+  Interface) support with post get put delete requests
+- Custom API and Server configuration with database
+- Awesome dark theme support
+- Toast Message and sweet-alert2 for notifications
+- react-responsive-carousel, aos Implementation for better UI
+- jspdf for pdf downlaod
+- Environment Variable configuration to save admin data from hackers
+- Regex with Valid email
+- Regex with Uppercase letters, lowercase letters and 6 characters in password
+- PrivateRoute to make the user login must
+- jwt configuration to configure security
+
+# npm Packages
+
+- npm i aos
+- npm i axios
+- npm i jspdf
+- npm i swiper
+- npm i firebase
+- npm i react-icons
+- npm i sweetalert2
+- npm i react-hot-toast
+- npm i react-router-dom
+- npm i react-helmet-async
+- npm i animate.css --save
+- npm install -g firebase-tools
+- npm i @tanstack/react-query
+- npm i framer-motion
+- npm i lottie-react (in error page and loading. e.g.
+  [here](https://glamspot-khaled.web.app/fdfgfdvgdfg))
+- npm i react-simple-typewriter (in hero section and title, 'Booked Services'
+  page title)
+- npm install react-tooltip (in userImage which will be showed after login)
+
+---
+
+# Getting Started
 
 To run this React project on your local machine follow the instructions-
 
@@ -61,48 +108,3 @@ Before you begin, ensure you have the following installed on your local machine:
 
    This will run the app in development mode. Open
    [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-# Key Features:
-
-- Add your service to database and manage them
-- Book others service as a user
-- provide and update service status in database
-
-# Description of tools
-
-- Loading data in a amazing way with no bug using TanStack Query
-- axiosSecure to force logout a hacker who wants to ge others data
-- CRUD or REST(Representational State Transfer) API(Application Programming
-  Interface) support with post get put delete requests
-- Custom API and Server configuration with database
-- Awesome dark theme support
-- Toast Message and sweet-alert2 for notifications
-- react-responsive-carousel, aos Implementation for better UI
-- jspdf for pdf downlaod
-- Environment Variable configuration to save admin data from hackers
-- Regex with Valid email
-- Regex with Uppercase letters, lowercase letters and 6 characters in password
-- PrivateRoute to make the user login must
-- jwt configuration to configure security
-
-# npm Packages
-
-- npm i aos
-- npm i axios
-- npm i jspdf
-- npm i swiper
-- npm i firebase
-- npm i react-icons
-- npm i sweetalert2
-- npm i react-hot-toast
-- npm i react-router-dom
-- npm i react-helmet-async
-- npm i animate.css --save
-- npm install -g firebase-tools
-- npm i @tanstack/react-query
-- npm i framer-motion
-- npm i lottie-react (in error page and loading. e.g.
-  [here](https://glamspot-khaled.web.app/fdfgfdvgdfg))
-- npm i react-simple-typewriter (in hero section and title, 'Booked Services'
-  page title)
-- npm install react-tooltip (in userImage which will be showed after login)
