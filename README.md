@@ -1,7 +1,5 @@
 # GlamSpot
 
-# Selected category name- Assignment_category_0002 (Beauty and Grooming Services)
-
 ## Live site:
 
 - Click here- [GlamSpot on firebase](https://glamspot-khaled.web.app)
@@ -9,7 +7,62 @@
 - Click here- [GlamSpot on surge](https://glamspot-by-khaled.surge.sh)
 - Click here- [GlamSpot on netlify](https://glamspot-by-khaled.netlify.app)
 
-# Features:
+## GitHub Repository:
+
+- [Client-Repository](https://github.com/khaledssbd/GlamSpot-project-client-side)
+
+- [Server-Repository](https://github.com/khaledssbd/GlamSpot-project-server-side)
+
+---
+
+## Getting Started
+
+To run this React project on your local machine follow the instructions-
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed on your local machine:
+
+- [Node.js](https://nodejs.org/en/download/) (which includes npm)
+- [Git](https://git-scm.com/)
+
+### Installation
+
+1. **Clone the repository:**
+
+   Open your terminal and run the following command to clone the repository:
+
+   ```bash
+   git clone https://github.com/khaledssbd/GlamSpot-project-client-side
+   ```
+
+2. **Navigate to the project directory:**
+
+   ```bash
+   cd GlamSpot-project-client-side
+   ```
+
+3. **Install dependencies:**
+
+   Run the following command to install all necessary dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. **Start the development server:**
+
+   Once the dependencies are installed, you can start the development server
+   with:
+
+   ```bash
+   npm run dev
+   ```
+
+   This will run the app in development mode. Open
+   [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+# Key Features:
 
 - Creative Design
 - All Device Responsive
@@ -33,15 +86,6 @@
 - Adaptable & Robust
 - No lorem text and no javascript default alert
 
-# npm Challenge Packages
-
-- npm i framer-motion
-- npm i lottie-react (in error page and loading. e.g.
-  [here](https://glamspot-khaled.web.app/fdfgfdvgdfg))
-- npm i react-simple-typewriter (in hero section and title, 'Booked Services'
-  page title)
-- npm install react-tooltip (in userImage which will be showed after login)
-
 # npm other Packages
 
 - npm i aos
@@ -60,3 +104,9 @@
 - npm i animate.css --save
 - npm install -g firebase-tools
 - npm i @tanstack/react-query
+- npm i framer-motion
+- npm i lottie-react (in error page and loading. e.g.
+  [here](https://glamspot-khaled.web.app/fdfgfdvgdfg))
+- npm i react-simple-typewriter (in hero section and title, 'Booked Services'
+  page title)
+- npm install react-tooltip (in userImage which will be showed after login)
