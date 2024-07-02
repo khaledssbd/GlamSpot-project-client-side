@@ -86,7 +86,7 @@ Before you begin, ensure you have the following installed on your local machine:
 - Adaptable & Robust
 - No lorem text and no javascript default alert
 
-# npm other Packages
+# npm Packages
 
 - npm i aos
 - npm i axios
