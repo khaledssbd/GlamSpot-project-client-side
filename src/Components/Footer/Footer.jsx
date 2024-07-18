@@ -34,7 +34,7 @@ const Footer = () => {
           </div>
           <p className="font-bold text-white">
             228C San Pablo St. Vallejo, CA 94591 <br />
-            Email: khaled@PH.com
+            Email: khaledssbd@gmail.com
           </p>
           <p className="text-white">Copyright © 2024 - All right reserved</p>
 
